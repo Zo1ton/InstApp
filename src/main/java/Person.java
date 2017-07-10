@@ -19,7 +19,9 @@ private int followers;      // Подписчики
 private int following;      // Подписки
 private int posts;          // Посты
 
-
+    public String getInstgson() {
+        return instgson;
+    }
 
     /**
      * На вход метода передается логин
@@ -39,7 +41,7 @@ private int posts;          // Посты
         return String.format("Followers: %d\nFollowing: %d\nPosts: %d", followers, following, posts);
     }
 
-    private void getJson(String login){
+    public void getJson(String login){
         String instname = login;                    // Имя аккаунта инстаграмм
         String instaccjson;
         try(FileWriter writer = new FileWriter(Tunes.savedir.getTune() + instname + ".txt", false))
