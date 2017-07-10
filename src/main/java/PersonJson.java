@@ -13,7 +13,6 @@ public class PersonJson {
     private JsonArray jsonArray;
 
     public String getJsonArray() {
-        gettingInfo();
         return jsonArray.getAsString();
     }
 
@@ -26,11 +25,12 @@ public class PersonJson {
         JsonElement rootElement = parser.parse(json);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("entry_data");
-        JsonArray array = null;
-        for (Map.Entry<String,JsonElement> entry : pages.entrySet()){
-            JsonObject entryObject = entry.getValue().getAsJsonObject();
-            array = entryObject.getAsJsonArray("ProfilePage");
-        }
+        JsonArray array = pages.getAsJsonArray("ProfilePage");
+//        for (Map.Entry<String,JsonElement> entry : pages.entrySet()){
+//            JsonObject entryObject = entry.getValue().getAsJsonObject();
+//            array = entryObject.getAsJsonArray("ProfilePage");
+//        }
         this.jsonArray = array;
+        System.out.println("array.size() = " + array.size());
     }
 }
