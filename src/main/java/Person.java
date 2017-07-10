@@ -10,11 +10,15 @@ import java.net.URL;
  */
 public class Person {
 
-private String instgson;
-private String name;
-private int followers;
-private int following;
-private int posts;
+private String instgson;    // Информация о странице в формате JSON
+private String userlogin;   // Логин пользователя
+private String fullname;    // Имя пользователя (ФИО и т.д.)
+private String biography;   // Описание
+private long id;            // id пользователя в инстаграмме
+private int followers;      // Подписчики
+private int following;      // Подписки
+private int posts;          // Посты
+
 
 
     /**
