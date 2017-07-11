@@ -10,11 +10,7 @@ import java.util.Map;
  */
 public class PersonJson {
     private String json;
-    private JsonArray jsonArray;
-
-    public String getJsonArray() {
-        return jsonArray.getAsString();
-    }
+    private int followedBy;
 
     public void setJson(String json) {
         this.json = json;
@@ -26,11 +22,15 @@ public class PersonJson {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("entry_data");
         JsonArray array = pages.getAsJsonArray("ProfilePage");
+        rootElement = array.get(0);
+        rootObject = rootElement.getAsJsonObject();
+        pages = rootObject.getAsJsonObject("user").getAsJsonObject("followed_by");
+        rootElement = pages.get("count");
+        this.followedBy = rootElement.getAsInt();
+
 //        for (Map.Entry<String,JsonElement> entry : pages.entrySet()){
 //            JsonObject entryObject = entry.getValue().getAsJsonObject();
 //            array = entryObject.getAsJsonArray("ProfilePage");
 //        }
-        this.jsonArray = array;
-        System.out.println("array.size() = " + array.size());
     }
 }
