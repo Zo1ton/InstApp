@@ -10,31 +10,10 @@ import java.net.URL;
  */
 public class Person {
 
-private String instgson;    // Информация о странице в формате JSON
-private int followers;      // Подписчики
-private int following;      // Подписки
-private int posts;          // Посты
+    private String instgson;    // Информация о странице в формате JSON
 
     public String getInstgson() {
         return instgson;
-    }
-
-    /**
-     * На вход метода передается логин
-     * Затем логин передается методу getInfo и получает иформацию об аккаунте в формате json
-     * Из json получаем информацию о количестве постов, подписок и подписчиков
-     */
-    public String getInfo(String login){
-        this.getJson(login);
-        int x, y, z;
-        x = instgson.indexOf(Tunes.startFollowers.getTune()) + Tunes.startFollowers.getTune().length();
-        y = instgson.indexOf(Tunes.startFollowing.getTune()) + Tunes.startFollowing.getTune().length();
-        z = instgson.indexOf(Tunes.startPosts.getTune()) + Tunes.startPosts.getTune().length();
-        this.followers = Integer.decode(instgson.substring(x, instgson.indexOf("}", x)));
-        this.following = Integer.decode(instgson.substring(y, instgson.indexOf("}", y)));
-        this.posts = Integer.decode(instgson.substring(z, instgson.indexOf(",", z)));
-
-        return String.format("Followers: %d\nFollowing: %d\nPosts: %d", followers, following, posts);
     }
 
     public void getJson(String login){

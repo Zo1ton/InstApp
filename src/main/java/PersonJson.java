@@ -14,6 +14,7 @@ public class PersonJson {
     private long id;
     private String userName;
     private String fullName;
+    private String biography;
     private boolean isPrivate;
 
     public void setJson(String json) {
@@ -39,22 +40,21 @@ public class PersonJson {
         this.posts = pages.get("count").getAsInt();
 
         pages = rootObject.getAsJsonObject("user");
+        this.biography = pages.get("biography").getAsString();
         this.id = pages.get("id").getAsLong();
         this.userName = pages.get("username").getAsString();
         this.fullName = pages.get("full_name").getAsString();
         this.isPrivate = pages.get("is_private").getAsBoolean();
 
-        System.out.println("this.followedBy = " + this.followedBy);
-        System.out.println("this.follows = " + this.follows);
-        System.out.println("this.posts = " + this.posts);
-        System.out.println("this.id = " + this.id);
-        System.out.println("this.userName = " + this.userName);
-        System.out.println("this.fullName = " + this.fullName);
-        System.out.println( this.isPrivate == true ? "Закрытая страница" : "Открытая страница");
-
 //        for (Map.Entry<String,JsonElement> entry : pages.entrySet()){
 //            JsonObject entryObject = entry.getValue().getAsJsonObject();
 //            array = entryObject.getAsJsonArray("ProfilePage");
 //        }
+    }
+
+    public String getInfo(){
+        return String.format("Подписчики - %d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
+                     (this.isPrivate == true ? "Закрытая страница" : "Открытая страница"),
+                      this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id);
     }
 }

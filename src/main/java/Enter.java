@@ -14,6 +14,6 @@ public class Enter {
         personJson.setJson(person.getInstgson());
         personJson.gettingInfo();
 
-        JOptionPane.showMessageDialog(null, person.getInfo(login), "Инфо аккаунта " + login, JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, personJson.getInfo(), "Инфо аккаунта " + login, JOptionPane.PLAIN_MESSAGE);
     }
 }
