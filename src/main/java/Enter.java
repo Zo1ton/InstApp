@@ -7,7 +7,7 @@ public class Enter {
     public static void main(String[] args) {
         String login = JOptionPane.showInputDialog(null, "Введите логин: ", "Ввод логина", JOptionPane.PLAIN_MESSAGE);
 
-        Person person = new Person();
+        JsonString person = new JsonString();
 
         person.getJson(login);
         PersonJson personJson = new PersonJson();
