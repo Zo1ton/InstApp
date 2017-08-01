@@ -40,7 +40,8 @@ public class PersonJson {
         this.posts = pages.get("count").getAsInt();
 
         pages = rootObject.getAsJsonObject("user");
-        this.biography = pages.get("biography").getAsString();
+
+        this.biography = (pages.get("biography").isJsonNull() ? "null" : pages.get("biography").getAsString());
         this.id = pages.get("id").getAsLong();
         this.userName = pages.get("username").getAsString();
         this.fullName = pages.get("full_name").getAsString();

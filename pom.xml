@@ -6,7 +6,7 @@
 
     <groupId>org.rnd.api</groupId>
     <artifactId>inst-app</artifactId>
-    <version>0.0.0.0007</version>
+    <version>0.0.0.0008</version>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
