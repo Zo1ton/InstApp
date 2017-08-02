@@ -11,7 +11,7 @@ public class Enter {
 
         person.getJson(login);
         PersonJson personJson = new PersonJson();
-        personJson.setJson(person.getInstgson());
+        personJson.setJson(person.getInstJson());
         personJson.gettingInfo();
 
         JOptionPane.showMessageDialog(null, personJson.getInfo(), "Инфо аккаунта " + login, JOptionPane.PLAIN_MESSAGE);

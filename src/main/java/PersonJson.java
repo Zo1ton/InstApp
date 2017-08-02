@@ -16,6 +16,7 @@ public class PersonJson {
     private String fullName;
     private String biography;
     private boolean isPrivate;
+    private boolean isVerified;
 
     public void setJson(String json) {
         this.json = json;
@@ -46,6 +47,7 @@ public class PersonJson {
         this.userName = pages.get("username").getAsString();
         this.fullName = pages.get("full_name").getAsString();
         this.isPrivate = pages.get("is_private").getAsBoolean();
+        this.isVerified = pages.get("is_verified").getAsBoolean();
 
 //        for (Map.Entry<String,JsonElement> entry : pages.entrySet()){
 //            JsonObject entryObject = entry.getValue().getAsJsonObject();
@@ -55,7 +57,8 @@ public class PersonJson {
 
     public String getInfo(){
         return String.format("Подписчики - %d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
-                     (this.isPrivate == true ? "Закрытая страница" : "Открытая страница"),
+                (this.isPrivate == true ? "Закрытая страница" : "Открытая страница") + "\n" +
+                (this.isVerified == true ? "Верифицированно" : "Не верифицированно"),
                       this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id);
     }
 }
