@@ -16,23 +16,20 @@ public class JsonString {
     }
 
     public void getJson(String login) {
-        String instName = login;    // Имя аккаунта инстаграмм
-        String instAccJson;         // Строка json
 
         try { //Не знаю как объяснить, но команда важная
-            URL url = new URL(" https://www.instagram.com/" + instName); //Открываем страницу инстаграмма
+            URL url = new URL(" https://www.instagram.com/" + login); //Открываем страницу инстаграмма
             BufferedReader br = new BufferedReader( //Создаём новый буффер
                     new InputStreamReader(url.openStream()));//Читаем страницу
             String line;//Создаём строковое значение
-            String instpage = null;
+            StringBuilder instpage = new StringBuilder();
             while ((line = br.readLine()) != null)//повторяем много раз, если есть ещё строка, тогда записываем её...
-                instpage = instpage + line;
+                instpage.append(line);
             br.close(); //...и закрываем буффер
 
             int x = instpage.indexOf(Tunes.startjson.getTune()) + Tunes.startjson.getTune().length();
             int y = instpage.indexOf(Tunes.endjson.getTune(), x);
-            instAccJson = instpage.substring(x, y);
-            this.instJson = instAccJson;
+            this.instJson = instpage.substring(x, y);
 
         } catch (MalformedURLException me) { //Если же такого хоста, сайта, не существует
             System.err.println("Unknown host: " + me); //Пишем ошибку
