@@ -3,10 +3,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.Date;
+
 /**
  * Created by SBT-Vdovin-AI on 10.07.2017.
  */
 public class PersonJson {
+    private final Date CREATING_DATE = new Date();
     private String json;
     private int followedBy;
     private int follows;
@@ -58,7 +61,8 @@ public class PersonJson {
     public String getInfo(){
         return String.format("Подписчики - %d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
                         (this.isPrivate == true ? "Закрытая страница" : "Открытая страница") + "\n" +
-                        (this.isVerified == true ? "Верифицированно" : "Не верифицированно"),
-                this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id);
+                        (this.isVerified == true ? "Верифицированно" : "Не верифицированно") + "\n" +
+                        "Дата создания - %s",
+                this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id, this.CREATING_DATE);
     }
 }
