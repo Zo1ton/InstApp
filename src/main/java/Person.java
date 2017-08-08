@@ -3,12 +3,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 
 /**
  * Created by SBT-Vdovin-AI on 10.07.2017.
  */
-public class PersonJson {
+public class Person {
     private final Date CREATING_DATE = new Date();
     private String json;
     private int followedBy;
@@ -21,11 +26,7 @@ public class PersonJson {
     private boolean isPrivate;
     private boolean isVerified;
 
-    public void setJson(String json) {
-        this.json = json;
-    }
-
-    public void gettingInfo(){
+    public void getInfoFromJson(){
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(json);
         JsonObject rootObject = rootElement.getAsJsonObject();
@@ -51,11 +52,6 @@ public class PersonJson {
         this.fullName = pages.get("full_name").getAsString();
         this.isPrivate = pages.get("is_private").getAsBoolean();
         this.isVerified = pages.get("is_verified").getAsBoolean();
-
-//        for (Map.Entry<String,JsonElement> entry : pages.entrySet()){
-//            JsonObject entryObject = entry.getValue().getAsJsonObject();
-//            array = entryObject.getAsJsonArray("ProfilePage");
-//        }
     }
 
     public String getInfo(){
@@ -64,5 +60,33 @@ public class PersonJson {
                         (this.isVerified == true ? "Верифицированно" : "Не верифицированно") + "\n" +
                         "Дата создания - %s",
                 this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id, this.CREATING_DATE);
+    }
+
+    public String getJson(String login) {
+
+        try { //Не знаю как объяснить, но команда важная
+            URL url = new URL(" https://www.instagram.com/" + login); //Открываем страницу инстаграмма
+            BufferedReader br = new BufferedReader( //Создаём новый буффер
+                    new InputStreamReader(url.openStream()));//Читаем страницу
+            String line;//Создаём строковое значение
+            StringBuilder instpage = new StringBuilder();
+            while ((line = br.readLine()) != null)//повторяем много раз, если есть ещё строка, тогда записываем её...
+                instpage.append(line);
+            br.close(); //...и закрываем буффер
+
+            int x = instpage.indexOf(Tunes.startjson.getTune()) + Tunes.startjson.getTune().length();
+            int y = instpage.indexOf(Tunes.endjson.getTune(), x);
+            this.json = instpage.substring(x, y);
+
+        } catch (MalformedURLException me) { //Если же такого хоста, сайта, не существует
+            System.err.println("Unknown host: " + me); //Пишем ошибку
+            System.exit(0); //И выходим
+
+        } catch (IOException ioe) {//Если невозможно присоедениться к хосту
+            System.err.println("Input error: " + ioe); //и пишем ошибку
+            System.out.println("Не найден логин " + login);
+        }
+
+        return this.json;
     }
 }
