@@ -26,7 +26,7 @@ public class Person {
     private boolean isPrivate;
     private boolean isVerified;
 
-    public void getJson(String login) {
+    public Person(String login) {
 
         try {                                               //Не знаю как объяснить, но команда важная
             URL url = new URL(" https://www.instagram.com/" + login); //Открываем страницу инстаграмма
@@ -55,7 +55,7 @@ public class Person {
 
     public void getInfoFromJson(){
         JsonParser parser = new JsonParser();
-        JsonElement rootElement = parser.parse(json);
+        JsonElement rootElement = parser.parse(this.json);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("entry_data");
         JsonArray array = pages.getAsJsonArray("ProfilePage");
@@ -81,7 +81,7 @@ public class Person {
         this.isVerified = pages.get("is_verified").getAsBoolean();
     }
 
-    public String getInfo(){
+    public String getInfoAsString(){
         return String.format("Подписчики - %d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
                         (this.isPrivate == true ? "Закрытая страница" : "Открытая страница") + "\n" +
                         (this.isVerified == true ? "Верифицированно" : "Не верифицированно") + "\n" +
