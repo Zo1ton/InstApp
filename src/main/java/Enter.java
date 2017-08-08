@@ -9,7 +9,6 @@ public class Enter {
 
         Person person = new Person();   // Создаем новую запись пользователя
         person.getJson(login);          // По логину получае json
-        person.getInfoFromJson();       // Из json`а получаем инфо о странице
 
         JOptionPane.showMessageDialog(null, person.getInfo(), "Инфо аккаунта " + login, JOptionPane.PLAIN_MESSAGE);
     }

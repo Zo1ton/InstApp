@@ -26,6 +26,33 @@ public class Person {
     private boolean isPrivate;
     private boolean isVerified;
 
+    public void getJson(String login) {
+
+        try {                                               //Не знаю как объяснить, но команда важная
+            URL url = new URL(" https://www.instagram.com/" + login); //Открываем страницу инстаграмма
+            BufferedReader br = new BufferedReader(         //Создаём новый буффер
+                    new InputStreamReader(url.openStream()));  //Читаем страницу
+            String line;                                    //Создаём строковое значение
+            StringBuilder instpage = new StringBuilder();
+            while ((line = br.readLine()) != null)          //повторяем много раз, если есть ещё строка, тогда записываем её...
+                instpage.append(line);
+            br.close();                                     //...и закрываем буффер
+
+            int x = instpage.indexOf(Tunes.startjson.getTune()) + Tunes.startjson.getTune().length();
+            int y = instpage.indexOf(Tunes.endjson.getTune(), x);
+            this.json = instpage.substring(x, y);
+
+        } catch (MalformedURLException me) {                //Если же такого хоста, сайта, не существует
+            System.err.println("Unknown host: " + me);      //Пишем ошибку
+            System.exit(0);                              //И выходим
+
+        } catch (IOException ioe) {                         //Если невозможно присоедениться к хосту
+            System.err.println("Input error: " + ioe);      //и пишем ошибку
+            System.out.println("Не найден логин " + login);
+        }
+        getInfoFromJson();
+    }
+
     public void getInfoFromJson(){
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(json);
@@ -60,33 +87,5 @@ public class Person {
                         (this.isVerified == true ? "Верифицированно" : "Не верифицированно") + "\n" +
                         "Дата создания - %s",
                 this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id, this.CREATING_DATE);
-    }
-
-    public String getJson(String login) {
-
-        try { //Не знаю как объяснить, но команда важная
-            URL url = new URL(" https://www.instagram.com/" + login); //Открываем страницу инстаграмма
-            BufferedReader br = new BufferedReader( //Создаём новый буффер
-                    new InputStreamReader(url.openStream()));//Читаем страницу
-            String line;//Создаём строковое значение
-            StringBuilder instpage = new StringBuilder();
-            while ((line = br.readLine()) != null)//повторяем много раз, если есть ещё строка, тогда записываем её...
-                instpage.append(line);
-            br.close(); //...и закрываем буффер
-
-            int x = instpage.indexOf(Tunes.startjson.getTune()) + Tunes.startjson.getTune().length();
-            int y = instpage.indexOf(Tunes.endjson.getTune(), x);
-            this.json = instpage.substring(x, y);
-
-        } catch (MalformedURLException me) { //Если же такого хоста, сайта, не существует
-            System.err.println("Unknown host: " + me); //Пишем ошибку
-            System.exit(0); //И выходим
-
-        } catch (IOException ioe) {//Если невозможно присоедениться к хосту
-            System.err.println("Input error: " + ioe); //и пишем ошибку
-            System.out.println("Не найден логин " + login);
-        }
-
-        return this.json;
     }
 }
