@@ -6,7 +6,7 @@
 
     <groupId>org.rnd.api</groupId>
     <artifactId>inst-app</artifactId>
-    <version>0.0.0.0017</version>
+    <version>0.0.0.0018</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

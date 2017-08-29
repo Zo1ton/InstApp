@@ -48,8 +48,11 @@ public class Enter extends Application {
 
         button.setOnAction(e -> {
             String login = textField.getText();
-            Person person = new Person(login);
-            label.setText(person.getInfoAsString());
+            if (!login.isEmpty()) {
+                Person person = new Person(login);
+                label.setText(person.getInfoAsString());
+            }
+            else label.setText("Введите логин!");
         });
 
         flowPane.getChildren().addAll(textField, button, label);

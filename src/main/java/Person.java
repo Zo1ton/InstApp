@@ -51,7 +51,9 @@ public class Person {
             System.err.println("Input error: " + ioe);      //и пишем ошибку
             System.out.println("Не найден логин " + login);
         }
-        getInfoFromJson();
+        if (this.json != null) {
+            getInfoFromJson();
+        }
     }
 
     public void getInfoFromJson(){
@@ -77,12 +79,18 @@ public class Person {
         this.biography = (pages.get("biography").isJsonNull() ? "null" : pages.get("biography").getAsString());
         this.id = pages.get("id").getAsLong();
         this.userName = pages.get("username").getAsString();
-        this.fullName = pages.get("full_name").getAsString();
+        this.fullName = ( pages.get("full_name").isJsonNull() ? "null" : pages.get("full_name").getAsString());
         this.isPrivate = pages.get("is_private").getAsBoolean();
         this.isVerified = pages.get("is_verified").getAsBoolean();
     }
 
     public String getInfoAsString(){
+
+        if (this.json == null) {
+            return new String("Не найден логин");
+        }
+
+        else
 
     return String.format("Подписчики - %d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
                         (this.isPrivate == true ? "Закрытая страница" : "Открытая страница") + "\n" +
