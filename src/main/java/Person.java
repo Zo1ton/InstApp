@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -92,7 +91,7 @@ public class Person {
 
         else
 
-    return String.format("Подписчики - %d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
+    return String.format("Подписчики - %,d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
                         (this.isPrivate == true ? "Закрытая страница" : "Открытая страница") + "\n" +
                         (this.isVerified == true ? "Верифицированно" : "Не верифицированно") + "\n" +
                         "Дата создания - %s",

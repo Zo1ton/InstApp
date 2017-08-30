@@ -1,5 +1,7 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,15 +12,7 @@ import javafx.stage.Stage;
 /**
  * Created by Andrey on 30.06.2017.
  */
-//public class Enter {
-//    public static void main(String[] args) {
-//        String login = JOptionPane.showInputDialog(null, "Введите логин: ", "Ввод логина", JOptionPane.PLAIN_MESSAGE);
-//
-//        Person person = new Person(login);   // Создаем новую запись пользователя
-//
-//        JOptionPane.showMessageDialog(null, person.getInfoAsString(), "Инфо аккаунта " + login, JOptionPane.PLAIN_MESSAGE);
-//    }
-//}
+
 public class Enter extends Application {
 
     Label label;
@@ -34,6 +28,12 @@ public class Enter extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+//        primaryStage.setTitle("Hello World");
+//        primaryStage.setScene(new Scene(root, 300, 275));
+//        primaryStage.show();
+
         Stage mainStage = new Stage();
         mainStage.setTitle("InstApp");
 
@@ -49,7 +49,7 @@ public class Enter extends Application {
         button.setOnAction(e -> {
             String login = textField.getText();
             if (!login.isEmpty()) {
-                Person person = new Person(login);
+                Person person = new Person(login);          // Создаем новую запись пользователя
                 label.setText(person.getInfoAsString());
             }
             else label.setText("Введите логин!");
