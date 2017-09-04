@@ -5,22 +5,30 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public class Controller {
-    public TextArea info = new TextArea();
-    public Button getData = new Button();
-    public TextField login = new TextField();
-    public Pane mainPane;
 
-
+//    public Pane mainPane;
 
     public void getInfoFromJson(ActionEvent actionEvent) {
 
-        getData.setOnAction(e -> {
-            String login1 =  login.getText();
+        Object source = actionEvent.getSource();
+
+        //Если нажата не кнопка выходим
+        if (!(source instanceof Button)){
+            return;
+        }
+
+        TextArea info = new TextArea();
+        Button getData = new Button();
+        TextField login = new TextField();
+
+        ((Button) source).setOnAction(e-> {
+
+            String login1 = login.getText();
+
             if (!login1.isEmpty()) {
                 Person person = new Person(login1);          // Создаем новую запись пользователя
                 login.setText(person.getInfoAsString());
-            }
-            else login.setText("Введите логин!");
+            } else login.setText("Введите логин!");
         });
 
     }

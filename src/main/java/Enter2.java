@@ -34,6 +34,10 @@ public class Enter2 extends Application {
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
 
+        // Даём контроллеру доступ к главному приложению.
+        PersonOverviewController controller = loader.getController();
+        controller.setMainApp(this);
+
         TextField textField = new TextField();
         label = new Label("Info about Instagramm account");
 
