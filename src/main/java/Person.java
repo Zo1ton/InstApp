@@ -25,6 +25,15 @@ public class Person {
     private String biography;
     private boolean isPrivate;
     private boolean isVerified;
+    public boolean isExist;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public Person(String login) {       //По логину вытягиваем json из html страницы
 
@@ -51,8 +60,10 @@ public class Person {
             System.out.println("Не найден логин " + login);
         }
         if (this.json != null) {
+            this.isExist = true;
             getInfoFromJson();
         }
+        else this.isExist = false;
     }
 
     public void getInfoFromJson(){
