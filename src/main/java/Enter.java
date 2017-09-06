@@ -45,9 +45,9 @@ public class Enter extends Application implements Serializable {
         label = new Label("Info about Instagramm account");
 
         // Если файл есть, пытаемся его десюрилизовать, если нет, создаем новую коллекцию.
-        File file = new File("temp.out");
+        File file = new File(Tunes.dbFile.getTune());
         if (file.exists()){
-            try (FileInputStream fis = new FileInputStream("temp.out");
+            try (FileInputStream fis = new FileInputStream(Tunes.dbFile.getTune());
                  ObjectInputStream in = new ObjectInputStream(fis))
             {
                 list = (List<Person>) in.readObject();
@@ -69,7 +69,7 @@ public class Enter extends Application implements Serializable {
                 if (person.isExist == true) {
                     label.setText(person.getInfoAsString());
                     list.add(person);
-                    System.out.println("В коллекцию List добавленна запись " + person.getUserName() + " - id - " + person.getId());
+                    System.out.println("В коллекцию добавленна запись " + person.getUserName() + " - id - " + person.getId());
                 }
             }
             else label.setText("Введите логин!");
@@ -85,11 +85,11 @@ public class Enter extends Application implements Serializable {
             final String id = textField1.getText();
             for (Person source : list){
                 if (String.format("%d", source.getId()).equals(id)){
-                    label1.setText("Логин есть в коллекции");
+                    label1.setText("id есть в коллекции");
                     break;
                 }
                 else {
-                    label1.setText("Логина нет в коллекции");
+                    label1.setText("id нет в коллекции");
                 }
             }
         });
@@ -103,7 +103,7 @@ public class Enter extends Application implements Serializable {
     @Override
     public void stop() throws Exception {
 //        super.stop();
-        try (FileOutputStream fos = new FileOutputStream("temp.out");
+        try (FileOutputStream fos = new FileOutputStream(Tunes.dbFile.getTune());
              ObjectOutputStream out = new ObjectOutputStream(fos))
         {
             out.writeObject(list);

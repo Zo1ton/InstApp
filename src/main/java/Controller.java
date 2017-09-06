@@ -1,35 +1,35 @@
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 
-public class Controller {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-//    public Pane mainPane;
+public class Controller implements Initializable {
 
-    public void getInfoFromJson(ActionEvent actionEvent) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
 
-        Object source = actionEvent.getSource();
+    @FXML
+    private TextField textField;
 
-        //Если нажата не кнопка выходим
-        if (!(source instanceof Button)){
-            return;
+    @FXML
+    private Label label;
+
+    @FXML
+    public void pressOnButton() {
+        System.out.println("работает");
+        String login = textField.getText();
+        if (!login.isEmpty()) {
+            Person person = new Person(login);          // Создаем новую запись пользователя
+            if (person.isExist == true) {
+                label.setText(person.getInfoAsString());
+//                list.add(person);
+//                System.out.println("В коллекцию добавленна запись " + person.getUserName() + " - id - " + person.getId());
+            }
         }
-
-        TextArea info = new TextArea();
-        Button getData = new Button();
-        TextField login = new TextField();
-
-        ((Button) source).setOnAction(e-> {
-
-            String login1 = login.getText();
-
-            if (!login1.isEmpty()) {
-                Person person = new Person(login1);          // Создаем новую запись пользователя
-                login.setText(person.getInfoAsString());
-            } else login.setText("Введите логин!");
-        });
-
+        else label.setText("Введите логин!");
     }
 }
