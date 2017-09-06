@@ -7,6 +7,15 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
+    public void init() throws Exception {
+        super.init();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("Hello World");
@@ -14,7 +23,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    @Override
+    public void stop() throws Exception {
+        super.stop();
     }
 }
