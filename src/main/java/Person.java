@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -13,9 +14,9 @@ import java.util.Date;
 /**
  * Created by SBT-Vdovin-AI on 10.07.2017.
  */
-public class Person {
+public class Person implements Serializable{
     private final Date CREATING_DATE = new Date();
-    private String json;
+    private transient String json;
     private int followedBy;
     private int follows;
     private int posts;

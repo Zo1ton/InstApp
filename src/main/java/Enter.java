@@ -1,7 +1,5 @@
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +18,7 @@ import java.util.List;
 public class Enter extends Application implements Serializable {
 
     Label label;
-    List<Person> list = new ArrayList();
+    List<Person> list;
 
     public static void main(String[] args) {
         launch();
@@ -28,22 +26,11 @@ public class Enter extends Application implements Serializable {
 
     @Override
     public void init() throws Exception {
-//        super.init();
-        if (!list.isEmpty()) {
-            FileInputStream fis = new FileInputStream("temp.out");
-            ObjectInputStream oin = new ObjectInputStream(fis);
-            List<Person> list = (List<Person>) oin.readObject();
-            System.out.println("Сериализация выполнена");
-        }
+        super.init();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-//        primaryStage.setTitle("Hello World");
-//        primaryStage.setScene(new Scene(root, 300, 275));
-//        primaryStage.show();
 
         Stage mainStage = new Stage();
         mainStage.setTitle("InstApp");
@@ -57,6 +44,24 @@ public class Enter extends Application implements Serializable {
         Button button = new Button("Получить инфо");
         label = new Label("Info about Instagramm account");
 
+        // Если файл есть, пытаемся его десюрилизовать, если нет, создаем новую коллекцию.
+        File file = new File("temp.out");
+        if (file.exists()){
+            try (FileInputStream fis = new FileInputStream("temp.out");
+                 ObjectInputStream in = new ObjectInputStream(fis))
+            {
+                list = (List<Person>) in.readObject();
+            } catch (IOException io){
+                System.err.println(io);
+                list = new ArrayList();
+            } catch (ClassNotFoundException cnfe){
+                System.err.println(cnfe);
+                list = new ArrayList();
+            }
+        } else {
+            list = new ArrayList<>();
+        }
+
         button.setOnAction(e -> {
             String login = textField.getText();
             if (!login.isEmpty()) {
@@ -64,7 +69,7 @@ public class Enter extends Application implements Serializable {
                 if (person.isExist == true) {
                     label.setText(person.getInfoAsString());
                     list.add(person);
-                    System.out.println("В коллекцию List добавленна запись " + person.getUserName());
+                    System.out.println("В коллекцию List добавленна запись " + person.getUserName() + " - id - " + person.getId());
                 }
             }
             else label.setText("Введите логин!");
@@ -98,11 +103,12 @@ public class Enter extends Application implements Serializable {
     @Override
     public void stop() throws Exception {
 //        super.stop();
-        FileOutputStream fos = new FileOutputStream("temp.out");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(list);
-        oos.flush();
-        oos.close();
-    }
-
+        try (FileOutputStream fos = new FileOutputStream("temp.out");
+             ObjectOutputStream out = new ObjectOutputStream(fos))
+        {
+            out.writeObject(list);
+        } catch (IOException io){
+            System.err.println(io);
+        }
+}
 }
