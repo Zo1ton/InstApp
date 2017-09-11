@@ -20,11 +20,11 @@ public class Controller implements Initializable {
     @FXML private TextField textField;
     @FXML private Label label;
     @FXML private TableView<Person> personTable;
-    @FXML private TableColumn<Person, Long> id;
-    @FXML private TableColumn<Person, String> login;
-    @FXML private TableColumn<Person, Long> posts;
-    @FXML private TableColumn<Person, Long> followers;
-    @FXML private TableColumn<Person, Long> following;
+    @FXML private TableColumn<Person, Long> idCol;
+    @FXML private TableColumn<Person, String> loginCol;
+    @FXML private TableColumn<Person, Long> postsCol;
+    @FXML private TableColumn<Person, Long> followersCol;
+    @FXML private TableColumn<Person, Long> followingCol;
 
     @FXML
     public void pressOnButton() {

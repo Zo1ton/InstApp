@@ -1,6 +1,4 @@
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,8 +12,9 @@ public class Main extends Application {
     }
 
     //http://o7planning.org/ru/11079/javafx-tableview-tutorial
-
-    private ObservableList<Person> personData = FXCollections.observableArrayList();
+    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
+    //https://www.youtube.com/watch?v=FQttcGLbn6E
+    //http://devcolibri.com/3160
 
     public static void main(String[] args) {
         launch(args);
@@ -23,14 +22,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Inst App");
         primaryStage.setScene(new Scene(root, 600, 300));
         primaryStage.show();
-    }
-
-    public ObservableList<Person> getPersonData() {
-        return personData;
     }
 
     @Override
