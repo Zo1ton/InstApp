@@ -26,7 +26,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("Inst App");
-        primaryStage.setScene(new Scene(root, 600, 300));
+        primaryStage.setScene(new Scene(root, 600, 500));
         Image ico = new Image("images/iconLogo.png");
         primaryStage.getIcons().add(ico);
         primaryStage.show();

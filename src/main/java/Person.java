@@ -26,7 +26,7 @@ public class Person implements Serializable{
     private String biography;
     private boolean isPrivate;
     private boolean isVerified;
-    public boolean isExist;
+    private boolean isExist;
 
     public String getUserName() {
         return userName;
@@ -34,6 +34,10 @@ public class Person implements Serializable{
 
     public long getId() {
         return id;
+    }
+
+    public boolean isExist() {
+        return isExist;
     }
 
     public Person(String login) {       //По логину вытягиваем json из html страницы
@@ -104,8 +108,8 @@ public class Person implements Serializable{
         else
 
     return String.format("Подписчики - %,d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
-                        (this.isPrivate == true ? "Закрытая страница" : "Открытая страница") + "\n" +
-                        (this.isVerified == true ? "Верифицированно" : "Не верифицированно") + "\n" +
+                        (this.isPrivate ? "Закрытая страница" : "Открытая страница") + "\n" +
+                        (this.isVerified ? "Верифицированно" : "Не верифицированно") + "\n" +
                         "Дата создания - %s",
                 this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id, this.CREATING_DATE);
     }
