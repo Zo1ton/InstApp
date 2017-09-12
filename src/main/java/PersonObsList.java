@@ -1,10 +1,13 @@
-class PersonObsList {
+public class PersonObsList {
     private String login;
     private Long id;
 
     public PersonObsList(String login, Long id) {
         this.login = login;
         this.id = id;
+    }
+
+    public PersonObsList() {
     }
 
     public String getLogin() {

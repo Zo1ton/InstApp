@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -9,6 +10,7 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         super.init();
+        Controller.startMain();
     }
 
     //http://o7planning.org/ru/11079/javafx-tableview-tutorial
@@ -26,11 +28,14 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("Inst App");
         primaryStage.setScene(new Scene(root, 600, 300));
+        Image ico = new Image("images/iconLogo.png");
+        primaryStage.getIcons().add(ico);
         primaryStage.show();
     }
 
     @Override
     public void stop() throws Exception {
         super.stop();
+        Controller.end();
     }
 }

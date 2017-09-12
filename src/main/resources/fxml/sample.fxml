@@ -8,9 +8,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller2">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <SplitPane dividerPositions="0.5" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" prefHeight="330.0" prefWidth="600.0" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -32,11 +32,11 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextField fx:id="textField" onAction="#pressOnButton" prefHeight="25.0" prefWidth="266.0" AnchorPane.bottomAnchor="258.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-                        <Button fx:id="button" mnemonicParsing="false" onAction="#pressOnButton" prefHeight="25.0" prefWidth="116.0" text="Запросить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="48.0" />
+                        <TextField fx:id="textField" onAction="#pressOnButton" prefHeight="25.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+                        <Button fx:id="button" layoutX="166.0" layoutY="58.0" mnemonicParsing="false" onAction="#pressOnButton" prefHeight="25.0" prefWidth="116.0" text="Запросить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
+                        <Label fx:id="label" layoutX="15.0" layoutY="95.0" prefHeight="211.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="105.0" />
                      </children>
                   </AnchorPane>
-                  <Label fx:id="label" layoutX="14.0" layoutY="80.0" prefHeight="211.0" prefWidth="266.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>
