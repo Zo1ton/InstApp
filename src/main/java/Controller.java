@@ -5,13 +5,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Controller {
 
-    static List<Person> list = new ArrayList<>();
-
+    static Map<Long, List<Person>> map = new HashMap<>();
+    List<Person> list = new ArrayList<>();
     ObservableList<PersonObsList> obsList = FXCollections.observableArrayList();
 
     @FXML private TextField textField;
@@ -22,35 +21,42 @@ public class Controller {
 
     @FXML
     public void initialize() {
-
         initData();
         // устанавливаем тип и значение которое должно хранится в колонке
         idCol.setCellValueFactory(new PropertyValueFactory<PersonObsList, Long>("id"));
         loginCol.setCellValueFactory(new PropertyValueFactory<PersonObsList, String>("login"));
-
         // заполняем таблицу данными
         table.setItems(obsList);
     }
 
     @FXML
     public void pressOnButton() {
-        System.out.println("работает");
+        System.out.println("Нажали на кнопку");
         String login = textField.getText();
         if (!login.isEmpty()) {
             Person person = new Person(login);          // Создаем новую запись пользователя
-            if (person.isExist == true) {
+            if (person.isExist) {
                 label.setText(person.getInfoAsString());
-                list.add(person);
-                System.out.println("В коллекцию добавленна запись " + person.getUserName() + " - id - " + person.getId());
-            }
-        }
-        else label.setText("Введите логин!");
+                if (map.containsKey(person.getId())) {
+                    list = map.get(person.getId());
+                    list.add(person);
+                    map.put(person.getId(), list);
+                    System.out.println("Обновлена запись " + person.getUserName() + " - id - " + person.getId());
+                } else {
+                    list = new ArrayList<>();
+                    list.add(person);
+                    map.put(person.getId(), list);
+                    System.out.println("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
+                }
+            } else label.setText("Такого пользователя не существует!");
+        } else label.setText("Введите логин!");
         initData();
     }
 
     private void initData() {
-        for (Person p : list){
-            obsList.add(new PersonObsList(p.getUserName(), p.getId()));
+        Set<Map.Entry<Long, List<Person>>> set = map.entrySet();
+        for (Map.Entry<Long, List<Person>> me : set){
+            obsList.add(new PersonObsList(me.getValue().get(0).getUserName(), me.getKey()));
         }
     }
 
@@ -61,24 +67,24 @@ public class Controller {
             try (FileInputStream fis = new FileInputStream(Tunes.dbFile.getTune());
                  ObjectInputStream in = new ObjectInputStream(fis))
             {
-                list = (List<Person>) in.readObject();
+                map = (HashMap<Long, List<Person>>) in.readObject();
             } catch (IOException io){
                 System.err.println(io);
-                list = new ArrayList();
+                map = new HashMap<>();
             } catch (ClassNotFoundException cnfe){
                 System.err.println(cnfe);
-                list = new ArrayList();
+                map = new HashMap<>();
             }
         } else {
-            list = new ArrayList<>();
+            map = new HashMap<>();
         }
     }
 
-    public static void end(){
+    public static void endMain(){
         try (FileOutputStream fos = new FileOutputStream(Tunes.dbFile.getTune());
              ObjectOutputStream out = new ObjectOutputStream(fos))
         {
-            out.writeObject(list);
+            out.writeObject(map);
         } catch (IOException io){
             System.err.println(io);
         }

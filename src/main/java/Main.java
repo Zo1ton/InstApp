@@ -15,7 +15,6 @@ public class Main extends Application {
 
     //http://o7planning.org/ru/11079/javafx-tableview-tutorial
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
-    //https://www.youtube.com/watch?v=FQttcGLbn6E
     //http://devcolibri.com/3160
 
     public static void main(String[] args) {
@@ -36,6 +35,6 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        Controller.end();
+        Controller.endMain();
     }
 }
