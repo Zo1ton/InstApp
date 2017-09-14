@@ -1,4 +1,4 @@
-package start;
+package objects;
 
 public class PersonObsList {
     private String login;

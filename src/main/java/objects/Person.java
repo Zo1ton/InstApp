@@ -1,9 +1,10 @@
-package start;
+package objects;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import start.Tunes;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package controllers;
 
-import start.Person;
-import start.PersonObsList;
+import objects.Person;
+import objects.PersonObsList;
 import start.Tunes;
 
 import javafx.collections.FXCollections;
@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.*;
 import java.util.*;
 
-public class Controller {
+public class MainController {
 
     private static Map<Long, List<Person>> map = new HashMap<>();
     private List<Person> list = new ArrayList<>();

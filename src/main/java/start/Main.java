@@ -1,6 +1,6 @@
 package start;
 
-import controllers.Controller;
+import controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        Controller.startMain();
+        MainController.startMain();
     }
 
     //http://o7planning.org/ru/11079/javafx-tableview-tutorial
@@ -27,7 +27,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../fxml/main.fxml"));
         primaryStage.setTitle("Inst App");
         primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.setMinWidth(600);
@@ -40,6 +40,6 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        Controller.endMain();
+        MainController.endMain();
     }
 }
