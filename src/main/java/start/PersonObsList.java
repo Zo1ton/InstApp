@@ -1,3 +1,5 @@
+package start;
+
 public class PersonObsList {
     private String login;
     private Long id;

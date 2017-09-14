@@ -1,3 +1,9 @@
+package controllers;
+
+import start.Person;
+import start.PersonObsList;
+import start.Tunes;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -60,7 +66,7 @@ public class Controller {
         }
     }
 
-    static void startMain(){
+    public static void startMain(){
         // Если файл есть, пытаемся его десюрилизовать, если нет, создаем новую коллекцию.
         File file = new File(Tunes.dbFile.getTune());
         if (file.exists()){
@@ -69,10 +75,10 @@ public class Controller {
             {
                 map = (HashMap<Long, List<Person>>) in.readObject();
             } catch (IOException io){
-                System.err.println(io);
+                System.err.println("IOException\n" + io);
                 map = new HashMap<>();
             } catch (ClassNotFoundException cnfe){
-                System.err.println(cnfe);
+                System.err.println("ClassNotFoundException\n" + cnfe);
                 map = new HashMap<>();
             }
         } else {
@@ -80,13 +86,14 @@ public class Controller {
         }
     }
 
-    static void endMain(){
+    public static void endMain(){
         try (FileOutputStream fos = new FileOutputStream(Tunes.dbFile.getTune());
              ObjectOutputStream out = new ObjectOutputStream(fos))
         {
             out.writeObject(map);
         } catch (IOException io){
             System.err.println("IOException при попытке прочитать\\найти " + Tunes.dbFile.getTune() + " файл");
+            io.printStackTrace();
         }
     }
 }

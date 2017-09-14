@@ -1,3 +1,6 @@
+package start;
+
+import controllers.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +30,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("Inst App");
         primaryStage.setScene(new Scene(root, 600, 500));
+        primaryStage.setMinWidth(600);
+        primaryStage.setMinHeight(500);
         Image ico = new Image("images/iconLogo.png");
         primaryStage.getIcons().add(ico);
         primaryStage.show();
