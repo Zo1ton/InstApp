@@ -2,6 +2,7 @@ package controllers;
 
 import interfaces.impl.CollectionInstagramAccounts;
 import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
 import objects.Person;
 import start.Tunes;
 
@@ -31,6 +32,7 @@ public class MainController {
     @FXML
     public void initialize() {
         initData();
+        updateLabelCount();
         // устанавливаем тип и значения которые должны хранится в колонках
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         loginCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
@@ -112,6 +114,6 @@ public class MainController {
     }
 
     private void updateLabelCount(){
-        labelCount.setText("Всего записей: " + collectionInstagramAccounts.getInstagramList().size());
+        labelCount.setText("Всего записей: " + collectionInstagramAccounts.getInstagramMap().size());
     }
 }

@@ -26,6 +26,11 @@ public class CollectionInstagramAccounts implements ICollectionInstagramAccounts
     }
 
     @Override
+    public void update(long l) {
+
+    }
+
+    @Override
     public void delete(Person person) {
 
     }
