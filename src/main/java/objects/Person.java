@@ -20,8 +20,8 @@ import java.util.Date;
 public class Person implements Serializable{
     private final Date CREATING_DATE = new Date();
     private transient String json;
-    private int followedBy;
-    private int follows;
+    private int followedBy;     // Подписчики (сколько на аккаунт людей подписано)
+    private int follows;        // Подписки (на скольких подписан)
     private int posts;
     private long id;
     private String userName;
@@ -37,6 +37,18 @@ public class Person implements Serializable{
 
     public long getId() {
         return id;
+    }
+
+    public int getFollowedBy() {
+        return followedBy;
+    }
+
+    public int getFollows() {
+        return follows;
+    }
+
+    public int getPosts() {
+        return posts;
     }
 
     public boolean isExist() {

@@ -1,11 +1,10 @@
 package controllers;
 
+import interfaces.impl.CollectionInstagramAccounts;
+import javafx.collections.ListChangeListener;
 import objects.Person;
-import objects.PersonObsList;
 import start.Tunes;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,22 +16,37 @@ public class MainController {
 
     private static Map<Long, List<Person>> map = new HashMap<>();
     private List<Person> list = new ArrayList<>();
-    private ObservableList<PersonObsList> obsList = FXCollections.observableArrayList();
+    private CollectionInstagramAccounts collectionInstagramAccounts = new CollectionInstagramAccounts();
 
     @FXML private TextField textField;
-    @FXML private Label label;
-    @FXML private TableView<PersonObsList> table;
-    @FXML private TableColumn<PersonObsList, Long> idCol;
-    @FXML private TableColumn<PersonObsList, String> loginCol;
+    @FXML private Label labelInfo;
+    @FXML private Label labelCount;
+    @FXML private TableView<Person> table;
+    @FXML private TableColumn<Person, Long> idCol;
+    @FXML private TableColumn<Person, String> loginCol;
+    @FXML private TableColumn<Person, Integer> postsCol;
+    @FXML private TableColumn<Person, Integer> followersCol;
+    @FXML private TableColumn<Person, Integer> followingCol;
 
     @FXML
     public void initialize() {
         initData();
-        // устанавливаем тип и значение которое должно хранится в колонке
+        // устанавливаем тип и значения которые должны хранится в колонках
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        loginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
+        loginCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        postsCol.setCellValueFactory(new PropertyValueFactory<>("posts"));
+        followingCol.setCellValueFactory(new PropertyValueFactory<>("followedBy"));
+        followersCol.setCellValueFactory(new PropertyValueFactory<>("follows"));
+
+        collectionInstagramAccounts.getInstagramList().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change<? extends Person> c) {
+                updateLabelCount();
+            }
+        });
+
         // заполняем таблицу данными
-        table.setItems(obsList);
+        table.setItems(collectionInstagramAccounts.getInstagramList());
     }
 
     @FXML
@@ -42,7 +56,7 @@ public class MainController {
         if (!login.isEmpty()) {
             Person person = new Person(login);          // Создаем новую запись пользователя
             if (person.isExist()) {
-                label.setText(person.getInfoAsString());
+                labelInfo.setText(person.getInfoAsString());
                 if (map.containsKey(person.getId())) {
                     list = map.get(person.getId());
                     list.add(person);
@@ -54,17 +68,17 @@ public class MainController {
                     map.put(person.getId(), list);
                     System.out.println("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
                 }
-            } else label.setText("Такого пользователя не существует!");
-        } else label.setText("Введите логин!");
+            } else labelInfo.setText("Такого пользователя не существует!");
+        } else labelInfo.setText("Введите логин!");
         initData();
     }
 
     private void initData() {
-        Set<Map.Entry<Long, List<Person>>> set = map.entrySet();
-        for (Map.Entry<Long, List<Person>> me : set){
-            obsList.add(new PersonObsList(me.getValue().get(0).getUserName(), me.getKey()));
+        for (Map.Entry<Long, List<Person>> entry : map.entrySet())
+            if (!collectionInstagramAccounts.getInstagramMap().containsKey(entry.getKey())) {
+                collectionInstagramAccounts.add(entry.getValue().get(entry.getValue().size() - 1));
+            }
         }
-    }
 
     public static void startMain(){
         // Если файл есть, пытаемся его десюрилизовать, если нет, создаем новую коллекцию.
@@ -95,5 +109,9 @@ public class MainController {
             System.err.println("IOException при попытке прочитать\\найти " + Tunes.dbFile.getTune() + " файл");
             io.printStackTrace();
         }
+    }
+
+    private void updateLabelCount(){
+        labelCount.setText("Всего записей: " + collectionInstagramAccounts.getInstagramList().size());
     }
 }
