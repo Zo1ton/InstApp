@@ -31,6 +31,10 @@ public class Person implements Serializable{
     private boolean isVerified;
     private boolean isExist;
 
+    public Date getCREATING_DATE() {
+        return CREATING_DATE;
+    }
+
     public String getUserName() {
         return userName;
     }

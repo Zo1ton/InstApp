@@ -62,9 +62,10 @@
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <TextField fx:id="textField" onAction="#pressOnButton" prefHeight="25.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-                              <Button fx:id="button" layoutX="166.0" layoutY="58.0" mnemonicParsing="false" onAction="#pressOnButton" prefHeight="25.0" prefWidth="116.0" text="Запросить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
-                              <Label fx:id="labelInfo" layoutX="15.0" layoutY="95.0" prefHeight="249.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="105.0" />
+                              <Button fx:id="btnRq" layoutX="166.0" layoutY="58.0" mnemonicParsing="false" onAction="#pressOnButton" prefHeight="25.0" prefWidth="116.0" text="Запросить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
+                              <Label fx:id="labelInfo" layoutX="15.0" layoutY="136.0" prefHeight="249.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="136.0" />
                               <Label fx:id="labelCount" layoutX="15.0" layoutY="387.0" prefHeight="17.0" prefWidth="266.0" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+                              <Button fx:id="btnShowHistory" layoutX="14.0" layoutY="94.0" mnemonicParsing="false" onAction="#getHistory" text="Посмотреть историю" AnchorPane.leftAnchor="15.0" />
                            </children>
                         </AnchorPane>
                     </items>

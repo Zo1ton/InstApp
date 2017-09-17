@@ -2,7 +2,7 @@ package controllers;
 
 import interfaces.impl.CollectionInstagramAccounts;
 import javafx.collections.ListChangeListener;
-import javafx.collections.MapChangeListener;
+import javafx.event.ActionEvent;
 import objects.Person;
 import start.Tunes;
 
@@ -11,13 +11,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.*;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MainController {
 
     private static Map<Long, List<Person>> map = new HashMap<>();
     private List<Person> list = new ArrayList<>();
-    private CollectionInstagramAccounts collectionInstagramAccounts = new CollectionInstagramAccounts();
+    private CollectionInstagramAccounts tableList = new CollectionInstagramAccounts();
 
     @FXML private TextField textField;
     @FXML private Label labelInfo;
@@ -31,7 +34,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        initData();
+        tableList.updateList(map);
         updateLabelCount();
         // устанавливаем тип и значения которые должны хранится в колонках
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -40,7 +43,7 @@ public class MainController {
         followingCol.setCellValueFactory(new PropertyValueFactory<>("followedBy"));
         followersCol.setCellValueFactory(new PropertyValueFactory<>("follows"));
 
-        collectionInstagramAccounts.getInstagramList().addListener(new ListChangeListener<Person>() {
+        tableList.getInstagramList().addListener(new ListChangeListener<Person>() {
             @Override
             public void onChanged(Change<? extends Person> c) {
                 updateLabelCount();
@@ -48,7 +51,7 @@ public class MainController {
         });
 
         // заполняем таблицу данными
-        table.setItems(collectionInstagramAccounts.getInstagramList());
+        table.setItems(tableList.getInstagramList());
     }
 
     @FXML
@@ -72,15 +75,12 @@ public class MainController {
                 }
             } else labelInfo.setText("Такого пользователя не существует!");
         } else labelInfo.setText("Введите логин!");
-        initData();
+        tableList.updateList(map);
     }
 
     private void initData() {
-        for (Map.Entry<Long, List<Person>> entry : map.entrySet())
-            if (!collectionInstagramAccounts.getInstagramMap().containsKey(entry.getKey())) {
-                collectionInstagramAccounts.add(entry.getValue().get(entry.getValue().size() - 1));
-            }
-        }
+        tableList.updateList(map);
+    }
 
     public static void startMain(){
         // Если файл есть, пытаемся его десюрилизовать, если нет, создаем новую коллекцию.
@@ -89,9 +89,9 @@ public class MainController {
             try (FileInputStream fis = new FileInputStream(Tunes.dbFile.getTune());
                  ObjectInputStream in = new ObjectInputStream(fis))
             {
-                map = (HashMap<Long, List<Person>>) in.readObject();
+                map = (Map) in.readObject();
             } catch (IOException io){
-                System.err.println("IOException\n" + io);
+                io.printStackTrace();
                 map = new HashMap<>();
             } catch (ClassNotFoundException cnfe){
                 System.err.println("ClassNotFoundException\n" + cnfe);
@@ -114,6 +114,24 @@ public class MainController {
     }
 
     private void updateLabelCount(){
-        labelCount.setText("Всего записей: " + collectionInstagramAccounts.getInstagramMap().size());
+        labelCount.setText("Всего записей: " + tableList.getInstagramList().size());
+    }
+
+    public void getHistory(ActionEvent actionEvent) {
+        Person selectedPerson = (Person)table.getSelectionModel().getSelectedItem();
+        System.out.println("selectedPerson.getId() - " + selectedPerson.getId());
+        labelInfo.setText(getPersonHistory(selectedPerson.getId()));
+    }
+
+    public String getPersonHistory (Long l){
+        String str = "";
+        for (Map.Entry<Long, List<Person>> entry : map.entrySet()) {
+            if (entry.getKey().equals(l)){
+                for (Person p : entry.getValue()){
+                    str += ("Date - " + p.getCREATING_DATE() + " UserName - " + p.getUserName() + " Followers - " + p.getFollowedBy() + "\n");
+                }
+            }
+        }
+        return str;
     }
 }
