@@ -90,7 +90,7 @@ public class Person implements Serializable{
         else this.isExist = false;
     }
 
-    public void getInfoFromJson(){
+    private void getInfoFromJson(){
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(json);
         JsonObject rootObject = rootElement.getAsJsonObject();
@@ -121,7 +121,7 @@ public class Person implements Serializable{
     public String getInfoAsString(){
 
         if (this.json == null) {
-            return new String("Не найден логин");
+            return String.format("%s" ,"Не найден логин");
         }
 
         else

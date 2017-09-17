@@ -78,10 +78,6 @@ public class MainController {
         tableList.updateList(map);
     }
 
-    private void initData() {
-        tableList.updateList(map);
-    }
-
     public static void startMain(){
         // Если файл есть, пытаемся его десюрилизовать, если нет, создаем новую коллекцию.
         File file = new File(Tunes.dbFile.getTune());
@@ -117,16 +113,16 @@ public class MainController {
         labelCount.setText("Всего записей: " + tableList.getInstagramList().size());
     }
 
+    @FXML
     public void getHistory(ActionEvent actionEvent) {
-        Person selectedPerson = (Person)table.getSelectionModel().getSelectedItem();
-        System.out.println("selectedPerson.getId() - " + selectedPerson.getId());
+        Person selectedPerson = table.getSelectionModel().getSelectedItem();
         labelInfo.setText(getPersonHistory(selectedPerson.getId()));
     }
 
-    public String getPersonHistory (Long l){
+    private String getPersonHistory (Long id){
         String str = "";
         for (Map.Entry<Long, List<Person>> entry : map.entrySet()) {
-            if (entry.getKey().equals(l)){
+            if (entry.getKey().equals(id)){
                 for (Person p : entry.getValue()){
                     str += ("Date - " + p.getCREATING_DATE() + " UserName - " + p.getUserName() + " Followers - " + p.getFollowedBy() + "\n");
                 }
