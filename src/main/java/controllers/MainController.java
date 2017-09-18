@@ -120,14 +120,14 @@ public class MainController {
     }
 
     private String getPersonHistory (Long id){
-        String str = "";
+        StringBuilder str = new StringBuilder("");
         for (Map.Entry<Long, List<Person>> entry : map.entrySet()) {
             if (entry.getKey().equals(id)){
                 for (Person p : entry.getValue()){
-                    str += ("Date - " + p.getCREATING_DATE() + " UserName - " + p.getUserName() + " Followers - " + p.getFollowedBy() + "\n");
+                    str.append(String.format("Date - %s UserName - %s Followers - %,d\n", p.getCREATING_DATE(), p.getUserName(), p.getFollowedBy()));
                 }
             }
         }
-        return str;
+        return str.toString();
     }
 }
