@@ -57,7 +57,7 @@ public class MainController {
     @FXML
     public void pressOnButton() {
         System.out.println("Нажали на кнопку");
-        String login = textField.getText();
+        String login = textField.getText().isEmpty() ? table.getSelectionModel().getSelectedItem().getUserName() : textField.getText();
         if (!login.isEmpty()) {
             Person person = new Person(login);          // Создаем новую запись пользователя
             if (person.isExist()) {
@@ -73,8 +73,12 @@ public class MainController {
                     map.put(person.getId(), list);
                     System.out.println("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
                 }
-            } else labelInfo.setText("Такого пользователя не существует!");
-        } else labelInfo.setText("Введите логин!");
+            } else {
+                labelInfo.setText("Такого пользователя не существует!");
+            }
+        } else {
+            labelInfo.setText("Введите логин!");
+        }
         tableList.updateList(map);
     }
 
@@ -86,10 +90,10 @@ public class MainController {
                  ObjectInputStream in = new ObjectInputStream(fis))
             {
                 map = (Map) in.readObject();
-            } catch (IOException io){
+            } catch (IOException io) {
                 io.printStackTrace();
                 map = new HashMap<>();
-            } catch (ClassNotFoundException cnfe){
+            } catch (ClassNotFoundException cnfe) {
                 System.err.println("ClassNotFoundException\n" + cnfe);
                 map = new HashMap<>();
             }
@@ -103,7 +107,7 @@ public class MainController {
              ObjectOutputStream out = new ObjectOutputStream(fos))
         {
             out.writeObject(map);
-        } catch (IOException io){
+        } catch (IOException io) {
             System.err.println("IOException при попытке прочитать\\найти " + Tunes.dbFile.getTune() + " файл");
             io.printStackTrace();
         }

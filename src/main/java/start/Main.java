@@ -32,7 +32,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(500);
-        Image ico = new Image("images/iconLogo.png");
+        Image ico = new Image("images/InstICO_180_180.png");
         primaryStage.getIcons().add(ico);
         primaryStage.show();
     }
