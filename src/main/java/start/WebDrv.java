@@ -1,11 +1,15 @@
 package start;
 
+import objects.Person;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WebDrv {
     public static void main(String[] args) throws InterruptedException {
@@ -61,8 +65,21 @@ public class WebDrv {
         List<WebElement> elementsList = driver.findElements(By.className("_2nunc"));
 //        List<WebElement> elementsList = driver.findElements(By.tagName("a"));
 
+        List<String> loginList = new ArrayList<>();
         for (WebElement element : elementsList) {
-            System.out.println(element.getText());
+            loginList.add(element.getText());
+//            System.out.println(element.getText());
+        }
+
+        // Закрываем браузер
+        driver.quit();
+
+        Map<Long, String> userMap = new HashMap<>();
+        int x = 1;
+        for (String login : loginList) {
+            Person person = new Person(login);
+            userMap.put(person.getId(), person.getUserName());
+            System.out.println("Обработан " + x++ + " из " + loginList.size());
         }
 
         // Отправляем форму, при этом дравер сам определит как отправить форму по элементу
@@ -70,9 +87,6 @@ public class WebDrv {
 
         // Ожидаем увидеть: "Selenium - Google Search"
 //        System.out.println("Page title is: " + driver.getTitle());
-
-        // Закрываем браузер
-        driver.quit();
     }
 
 }
