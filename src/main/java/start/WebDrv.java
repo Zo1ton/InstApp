@@ -77,7 +77,7 @@ public class WebDrv {
         Map<Long, String> userMap = new HashMap<>();
         int x = 1;
         for (String login : loginList) {
-            Person person = new Person(login);
+            Person person = new Person(login, false);
             userMap.put(person.getId(), person.getUserName());
             System.out.println("Обработан " + x++ + " из " + loginList.size());
         }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -63,9 +64,11 @@
                            <children>
                               <TextField fx:id="textField" onAction="#pressOnButton" prefHeight="25.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
                               <Button fx:id="btnRq" layoutX="166.0" layoutY="58.0" mnemonicParsing="false" onAction="#pressOnButton" prefHeight="25.0" prefWidth="116.0" text="Запросить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
-                              <Label fx:id="labelInfo" layoutX="15.0" layoutY="136.0" prefHeight="249.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="136.0" />
+                              <CheckBox fx:id="cbFol" layoutX="193.0" layoutY="95.0" mnemonicParsing="false" text="Получить список подписчиков" AnchorPane.rightAnchor="15.0" />
+                              <Button fx:id="btnMerge" layoutX="219.0" layoutY="123.0" mnemonicParsing="false" onAction="#merge" text="Сравнить" AnchorPane.rightAnchor="15.0" />
+                              <Button fx:id="btnShowHistory" layoutX="14.0" layoutY="148.0" mnemonicParsing="false" onAction="#getHistory" text="Посмотреть историю" AnchorPane.leftAnchor="14.0" />
+                              <Label fx:id="labelInfo" layoutX="15.0" layoutY="179.0" prefHeight="206.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="179.0" />
                               <Label fx:id="labelCount" layoutX="15.0" layoutY="387.0" prefHeight="17.0" prefWidth="266.0" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
-                              <Button fx:id="btnShowHistory" layoutX="14.0" layoutY="94.0" mnemonicParsing="false" onAction="#getHistory" text="Посмотреть историю" AnchorPane.leftAnchor="15.0" />
                            </children>
                         </AnchorPane>
                     </items>

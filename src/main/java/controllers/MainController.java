@@ -25,6 +25,7 @@ public class MainController {
     @FXML private TextField textField;
     @FXML private Label labelInfo;
     @FXML private Label labelCount;
+    @FXML private CheckBox cbFol;
     @FXML private TableView<Person> table;
     @FXML private TableColumn<Person, Long> idCol;
     @FXML private TableColumn<Person, String> loginCol;
@@ -59,7 +60,7 @@ public class MainController {
         System.out.println("Нажали на кнопку");
         String login = textField.getText().isEmpty() ? table.getSelectionModel().getSelectedItem().getUserName() : textField.getText();
         if (!login.isEmpty()) {
-            Person person = new Person(login);          // Создаем новую запись пользователя
+            Person person = new Person(login, cbFol.isSelected());          // Создаем новую запись пользователя
             if (person.isExist()) {
                 labelInfo.setText(person.getInfoAsString());
                 if (map.containsKey(person.getId())) {
@@ -133,5 +134,31 @@ public class MainController {
             }
         }
         return str.toString();
+    }
+
+    public void merge(ActionEvent actionEvent) {
+        long id = table.getSelectionModel().getSelectedItem().getId();
+        List<Person> lp = map.get(id);
+        if (lp.size() < 2) {
+            System.out.println("Недостаточно записей");
+        }
+        else {
+            Person pOld = lp.get(lp.size() - 2);
+            Person pNew = lp.get(lp.size() - 1);
+            List<String> lOld = pOld.getListFollowedBy();
+            List<String> lNew = pNew.getListFollowedBy();
+
+            for (String str : lOld) {
+                if (!lNew.contains(str)) {
+                    System.out.println("Отписался пользователь - " + str);
+                }
+            }
+
+            for (String str : lNew) {
+                if (!lOld.contains(str)) {
+                    System.out.println("Подписался пользователь - " + str);
+                }
+            }
+        }
     }
 }
