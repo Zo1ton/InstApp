@@ -2,12 +2,11 @@ import objects.Person;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class PersonTest {
 
     @Test
-    public void testGetId(){
+    public void testGetId() {
 
         String login = "ngageman61";
         Person person = new Person(login, false);
