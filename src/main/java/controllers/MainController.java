@@ -3,6 +3,7 @@ package controllers;
 import interfaces.impl.CollectionInstagramAccounts;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import objects.Person;
 import start.Tunes;
 
@@ -160,5 +161,9 @@ public class MainController {
                 }
             }
         }
+    }
+
+    public void showPersonHistory(MouseEvent mouseEvent) {
+
     }
 }

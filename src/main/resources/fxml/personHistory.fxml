@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tablePersonHistory" layoutX="163.0" layoutY="78.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="colData" prefWidth="136.0" text="Дата" />
+          <TableColumn fx:id="colFollowedBy" minWidth="0.0" prefWidth="237.0" text="Кол-во подписчиков" />
+            <TableColumn fx:id="colIsHistoryExists" maxWidth="288.0" minWidth="-1.0" prefWidth="226.0" text="Есть список подписчиков" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
