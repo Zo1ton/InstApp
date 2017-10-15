@@ -5,6 +5,7 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import objects.Person;
+import org.apache.log4j.Logger;
 import start.Tunes;
 
 import javafx.fxml.FXML;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class MainController {
+
+    private static final Logger LOG = Logger.getLogger(MainController.class);
 
     private static Map<Long, List<Person>> map = new HashMap<>();
     private List<Person> list = new ArrayList<>();
@@ -58,7 +61,7 @@ public class MainController {
 
     @FXML
     public void pressOnButton() {
-        System.out.println("Нажали на кнопку");
+        LOG.info("Нажали на кнопку Запросить");
         String login = textField.getText().isEmpty() ? table.getSelectionModel().getSelectedItem().getUserName() : textField.getText();
         if (!login.isEmpty()) {
             Person person = new Person(login, cbFol.isSelected());          // Создаем новую запись пользователя
@@ -68,12 +71,12 @@ public class MainController {
                     list = map.get(person.getId());
                     list.add(person);
                     map.put(person.getId(), list);
-                    System.out.println("Обновлена запись " + person.getUserName() + " - id - " + person.getId());
+                    LOG.info("Обновлена запись " + person.getUserName() + " - id - " + person.getId());
                 } else {
                     list = new ArrayList<>();
                     list.add(person);
                     map.put(person.getId(), list);
-                    System.out.println("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
+                    LOG.info("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
                 }
             } else {
                 labelInfo.setText("Такого пользователя не существует!");
@@ -96,7 +99,7 @@ public class MainController {
                 io.printStackTrace();
                 map = new HashMap<>();
             } catch (ClassNotFoundException cnfe) {
-                System.err.println("ClassNotFoundException\n" + cnfe);
+                LOG.error("ClassNotFoundException\n" + cnfe);
                 map = new HashMap<>();
             }
         } else {
@@ -110,7 +113,7 @@ public class MainController {
         {
             out.writeObject(map);
         } catch (IOException io) {
-            System.err.println("IOException при попытке прочитать\\найти " + Tunes.dbFile.getTune() + " файл");
+            LOG.error("IOException при попытке прочитать\\найти " + Tunes.dbFile.getTune() + " файл");
             io.printStackTrace();
         }
     }
@@ -141,7 +144,7 @@ public class MainController {
         long id = table.getSelectionModel().getSelectedItem().getId();
         List<Person> lp = map.get(id);
         if (lp.size() < 2) {
-            System.out.println("Недостаточно записей");
+            LOG.info("Недостаточно записей");
         }
         else {
             Person pOld = lp.get(lp.size() - 2);
@@ -151,13 +154,13 @@ public class MainController {
 
             for (String str : lOld) {
                 if (!lNew.contains(str)) {
-                    System.out.println("Отписался пользователь - " + str);
+                    LOG.info("Отписался пользователь - " + str);
                 }
             }
 
             for (String str : lNew) {
                 if (!lOld.contains(str)) {
-                    System.out.println("Подписался пользователь - " + str);
+                    LOG.info("Подписался пользователь - " + str);
                 }
             }
         }

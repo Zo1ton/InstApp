@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,6 +26,9 @@ import java.util.List;
  * Created by SBT-Vdovin-AI on 10.07.2017.
  */
 public class Person implements Serializable{
+
+    private static final Logger LOG = Logger.getLogger(Person.class);
+
     private final Date CREATING_DATE = new Date();
     private transient String json;
     private int followedBy;     // Подписчики (сколько на аккаунт людей подписано)
@@ -88,12 +92,12 @@ public class Person implements Serializable{
             this.json = instpage.substring(x, y);
 
         } catch (MalformedURLException me) {                //Если же такого хоста, сайта, не существует
-            System.err.println("Unknown host: " + me);      //Пишем ошибку
+            LOG.error("Unknown host: " + me);               //Пишем ошибку
             System.exit(0);                              //И выходим
 
         } catch (IOException ioe) {                         //Если невозможно присоедениться к хосту
-            System.err.println("Input error: " + ioe);      //и пишем ошибку
-            System.out.println("Не найден логин " + login);
+            LOG.error("Input error: " + ioe);               //и пишем ошибку
+            LOG.info("Input error: " + ioe);
         }
         if (this.json != null) {
             this.isExist = true;
@@ -151,7 +155,7 @@ public class Person implements Serializable{
     }
 
     private List<String> createListfollowedBy(){
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         // Открываем гугл, используя драйвер
         driver.get("https://www.instagram.com/accounts/login/");
@@ -188,7 +192,7 @@ public class Person implements Serializable{
             e.printStackTrace();
         }
 
-        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div/div[2]/div/div[2]/div/div[2]/ul/li[1]/div/div[1]/div/div[2]"));
+        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div/div/div[2]/div/div[2]/ul/li[1]/div/div[1]/div/div[2]"));
         we.click();
 
         Robot robot = null;
@@ -213,7 +217,7 @@ public class Person implements Serializable{
         List<String> loginList = new ArrayList<>();
         for (WebElement element : elementsList) {
             loginList.add(element.getText());
-            System.out.println(element.getText());
+            LOG.debug(element.getText());
         }
 
         // Закрываем браузер
