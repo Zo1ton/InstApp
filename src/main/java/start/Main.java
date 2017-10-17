@@ -16,10 +16,6 @@ public class Main extends Application {
         MainController.startMain();
     }
 
-    //http://o7planning.org/ru/11079/javafx-tableview-tutorial
-    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
-    //http://devcolibri.com/3160
-
     public static void main(String[] args) {
         launch(args);
     }

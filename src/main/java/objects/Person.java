@@ -155,7 +155,7 @@ public class Person implements Serializable{
     }
 
     private List<String> createListfollowedBy(){
-//        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/webdrivers/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         // Открываем гугл, используя драйвер
         driver.get("https://www.instagram.com/accounts/login/");
@@ -192,7 +192,7 @@ public class Person implements Serializable{
             e.printStackTrace();
         }
 
-        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div/div/div[2]/div/div[2]/ul/li[1]/div/div[1]/div/div[2]"));
+        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div/div/div[2]/div/div[2]/ul/li[1]"));
         we.click();
 
         Robot robot = null;
