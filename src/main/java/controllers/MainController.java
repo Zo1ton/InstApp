@@ -87,13 +87,12 @@ public class MainController {
         tableList.updateList(map);
     }
 
-    public static void startMain(){
+    public static void startMain() {
         // Если файл есть, пытаемся его десюрилизовать, если нет, создаем новую коллекцию.
         File file = new File(Tunes.dbFile.getTune());
-        if (file.exists()){
+        if (file.exists()) {
             try (FileInputStream fis = new FileInputStream(Tunes.dbFile.getTune());
-                 ObjectInputStream in = new ObjectInputStream(fis))
-            {
+                 ObjectInputStream in = new ObjectInputStream(fis)) {
                 map = (Map) in.readObject();
             } catch (IOException io) {
                 io.printStackTrace();
@@ -107,10 +106,9 @@ public class MainController {
         }
     }
 
-    public static void endMain(){
+    public static void endMain() {
         try (FileOutputStream fos = new FileOutputStream(Tunes.dbFile.getTune());
-             ObjectOutputStream out = new ObjectOutputStream(fos))
-        {
+             ObjectOutputStream out = new ObjectOutputStream(fos)) {
             out.writeObject(map);
         } catch (IOException io) {
             LOG.error("IOException при попытке прочитать\\найти " + Tunes.dbFile.getTune() + " файл");
@@ -118,7 +116,7 @@ public class MainController {
         }
     }
 
-    private void updateLabelCount(){
+    private void updateLabelCount() {
         labelCount.setText("Всего записей: " + tableList.getInstagramList().size());
     }
 
@@ -128,11 +126,11 @@ public class MainController {
         labelInfo.setText(getPersonHistory(selectedPerson.getId()));
     }
 
-    private String getPersonHistory (Long id){
+    private String getPersonHistory(Long id) {
         StringBuilder str = new StringBuilder("");
         for (Map.Entry<Long, List<Person>> entry : map.entrySet()) {
-            if (entry.getKey().equals(id)){
-                for (Person p : entry.getValue()){
+            if (entry.getKey().equals(id)) {
+                for (Person p : entry.getValue()) {
                     str.append(String.format("Date - %s UserName - %s Followers - %,d\n", p.getCREATING_DATE(), p.getUserName(), p.getFollowedBy()));
                 }
             }
@@ -145,8 +143,7 @@ public class MainController {
         List<Person> lp = map.get(id);
         if (lp.size() < 2) {
             LOG.info("Недостаточно записей");
-        }
-        else {
+        } else {
             Person pOld = lp.get(lp.size() - 2);
             Person pNew = lp.get(lp.size() - 1);
             List<String> lOld = pOld.getListFollowedBy();

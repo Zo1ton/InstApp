@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by SBT-Vdovin-AI on 10.07.2017.
  */
-public class Person implements Serializable{
+public class Person implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(Person.class);
 
@@ -104,14 +104,13 @@ public class Person implements Serializable{
 
             getInfoFromJson();
 
-            if (isGetFollowers && this.followedBy < 10000){
+            if (isGetFollowers && this.followedBy < 10000) {
                 this.listFollowedBy = createListfollowedBy();
             }
-        }
-        else this.isExist = false;
+        } else this.isExist = false;
     }
 
-    private void getInfoFromJson(){
+    private void getInfoFromJson() {
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(json);
         JsonObject rootObject = rootElement.getAsJsonObject();
@@ -134,27 +133,25 @@ public class Person implements Serializable{
         this.biography = (pages.get("biography").isJsonNull() ? "null" : pages.get("biography").getAsString());
         this.id = pages.get("id").getAsLong();
         this.userName = pages.get("username").getAsString();
-        this.fullName = ( pages.get("full_name").isJsonNull() ? "null" : pages.get("full_name").getAsString());
+        this.fullName = (pages.get("full_name").isJsonNull() ? "null" : pages.get("full_name").getAsString());
         this.isPrivate = pages.get("is_private").getAsBoolean();
         this.isVerified = pages.get("is_verified").getAsBoolean();
     }
 
-    public String getInfoAsString(){
+    public String getInfoAsString() {
 
         if (this.json == null) {
-            return String.format("%s" ,"Не найден логин");
-        }
+            return String.format("%s", "Не найден логин");
+        } else
 
-        else
-
-    return String.format("Подписчики - %,d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
-                        (this.isPrivate ? "Закрытая страница" : "Открытая страница") + "\n" +
-                        (this.isVerified ? "Верифицированно" : "Не верифицированно") + "\n" +
-                        "Дата создания - %s",
-                this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id, this.CREATING_DATE);
+            return String.format("Подписчики - %,d\nПодписки - %d\nПосты - %d\nЛогин - %s\nИмя - %s\nБиография - %s\nid - %d\n" +
+                            (this.isPrivate ? "Закрытая страница" : "Открытая страница") + "\n" +
+                            (this.isVerified ? "Верифицированно" : "Не верифицированно") + "\n" +
+                            "Дата создания - %s",
+                    this.followedBy, this.follows, this.posts, this.userName, this.fullName, this.biography, this.id, this.CREATING_DATE);
     }
 
-    private List<String> createListfollowedBy(){
+    private List<String> createListfollowedBy() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/webdrivers/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         // Открываем гугл, используя драйвер
@@ -202,7 +199,7 @@ public class Person implements Serializable{
             e.printStackTrace();
         }
 
-        for (int i = 0; i <(this.followedBy/6) ; i++) {
+        for (int i = 0; i < (this.followedBy / 6); i++) {
             robot.keyPress(KeyEvent.VK_PAGE_DOWN);
             robot.keyRelease(KeyEvent.VK_PAGE_DOWN);
             try {

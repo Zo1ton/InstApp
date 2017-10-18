@@ -4,9 +4,9 @@ import objects.Person;
 
 public interface ICollectionInstagramAccounts {
 
-    public void add (Person person);
+    void add(Person person);
 
-    public void update (Person person);
+    void update(Person person);
 
-    public void delete(Person person);
+    void delete(Person person);
 }
