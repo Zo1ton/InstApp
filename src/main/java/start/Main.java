@@ -1,5 +1,6 @@
 package start;
 
+import controllers.AuthorizationController;
 import controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        new AuthorizationController().run();
 
         Parent root = FXMLLoader.load(getClass().getResource("../fxml/main.fxml"));
         primaryStage.setTitle("Inst App");
