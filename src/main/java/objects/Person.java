@@ -189,7 +189,7 @@ public class Person implements Serializable {
             e.printStackTrace();
         }
 
-        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div/div/div[2]/div/div[2]/ul/li[1]"));
+        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div/div/div[2]/div/div[2]/ul/div/li[1]"));
         we.click();
 
         Robot robot = null;

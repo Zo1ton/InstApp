@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -122,16 +123,30 @@ public class MainController {
 
     @FXML
     public void getHistory(ActionEvent actionEvent) {
-        Person selectedPerson = table.getSelectionModel().getSelectedItem();
-        labelInfo.setText(getPersonHistory(selectedPerson.getId()));
+        try {
+            Person selectedPerson = table.getSelectionModel().getSelectedItem();
+            labelInfo.setText(getPersonHistory(selectedPerson.getId()));
+        } catch (Exception e) {
+            labelInfo.setText("Запись не выбрана!");
+            LOG.info("Запись не выбрана!", e);
+        }
     }
 
+    /**
+     * По id аккаунта инстаграм, показывает последнии сохраненные данные, т.е. историю
+     * Возвращается истария с последней записи
+     * @param id - id пользователя инстаграм
+     * @return строка с историей
+     */
     private String getPersonHistory(Long id) {
         StringBuilder str = new StringBuilder("");
         for (Map.Entry<Long, List<Person>> entry : map.entrySet()) {
             if (entry.getKey().equals(id)) {
                 for (Person p : entry.getValue()) {
-                    str.append(String.format("Date - %s UserName - %s Followers - %,d\n", p.getCREATING_DATE(), p.getUserName(), p.getFollowedBy()));
+                    str.insert(0, String.format("Date - %s UserName - %s Followers - %,d\n",
+                            p.getCREATING_DATE(),
+                            p.getUserName(),
+                            p.getFollowedBy()));
                 }
             }
         }
