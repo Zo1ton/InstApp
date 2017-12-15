@@ -179,7 +179,7 @@ public class Person implements Serializable {
 
         driver.navigate().to("https://www.instagram.com/" + this.userName + "/followers/");
 
-        WebElement followers = driver.findElement(By.xpath("//*[@id='react-root']/section/main/article/header/div[2]/ul/li[2]/a"));
+        WebElement followers = driver.findElement(By.xpath("//*[@id='react-root']/section/main/article/header/section/ul/li[2]/a"));
         followers.click();
 
         // Ждем 3 сек пока загрузятся подписчики
@@ -189,7 +189,7 @@ public class Person implements Serializable {
             e.printStackTrace();
         }
 
-        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div/div/div[2]/div/div[2]/ul/div/li[1]"));
+        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div/div[2]/div/div[2]/ul/div/li[1]"));
         we.click();
 
         Robot robot = null;
