@@ -32,7 +32,7 @@ try {
     console.log('%cНачался сбор данных, дождитесь выполнения...', 'color: #13a555; font-size:20px;');
     function start() {
         t++;
-        if (true){
+        if (i == t){
             off();
             console.log('%cАккаунтов собрано: '+n.length +' шт.', 'color: #13a555; font-size:20px;');
             if (i>n.length){console.log('%cСтранно, но '+(i - n.length) +' шт. не определились, ну и ладно=)', 'color: #13a555; font-size:20px;')};
