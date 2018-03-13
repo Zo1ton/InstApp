@@ -6,7 +6,7 @@
 
     <groupId>org.rnd.api</groupId>
     <artifactId>inst-app</artifactId>
-    <version>0.0.0.0054</version>
+    <version>0.0.0.0055</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -52,6 +52,12 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>openjfx-dialogs</artifactId>
+            <version>1.0.3</version>
         </dependency>
 
     </dependencies>
