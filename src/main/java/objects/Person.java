@@ -117,18 +117,18 @@ public class Person implements Serializable {
         JsonObject pages = rootObject.getAsJsonObject("entry_data");
         JsonArray array = pages.getAsJsonArray("ProfilePage");
         rootElement = array.get(0);
-        rootObject = rootElement.getAsJsonObject();
+        rootObject = rootElement.getAsJsonObject().getAsJsonObject("graphql").getAsJsonObject("user");
 
-        pages = rootObject.getAsJsonObject("user").getAsJsonObject("followed_by");
+        pages = rootObject.getAsJsonObject("edge_followed_by");
         this.followedBy = pages.get("count").getAsInt();
 
-        pages = rootObject.getAsJsonObject("user").getAsJsonObject("follows");
+        pages = rootObject.getAsJsonObject("edge_follow");
         this.follows = pages.get("count").getAsInt();
 
-        pages = rootObject.getAsJsonObject("user").getAsJsonObject("media");
+        pages = rootObject.getAsJsonObject("edge_owner_to_timeline_media");
         this.posts = pages.get("count").getAsInt();
 
-        pages = rootObject.getAsJsonObject("user");
+        pages = rootObject;
 
         this.biography = (pages.get("biography").isJsonNull() ? "null" : pages.get("biography").getAsString());
         this.id = pages.get("id").getAsLong();

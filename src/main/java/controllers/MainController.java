@@ -4,7 +4,6 @@ import interfaces.impl.CollectionInstagramAccounts;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,7 +19,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;

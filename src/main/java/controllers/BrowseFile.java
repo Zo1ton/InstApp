@@ -52,6 +52,7 @@ public class BrowseFile {
         
         if (!personsList.isEmpty()) {
             for (String name : personsList) {
+                System.out.println(name);
                 Person person = new Person(name, false);
                 System.out.println(person.getId());
                 System.out.println("============");
