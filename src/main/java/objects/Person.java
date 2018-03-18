@@ -75,7 +75,11 @@ public class Person implements Serializable {
         return listFollowedBy;
     }
 
-    public Person(String login, Boolean isGetFollowers) {       //По логину вытягиваем json из html страницы
+    public String getJson() {
+        return json;
+    }
+
+    public Person(String login) {       //По логину вытягиваем json из html страницы
 
         try {
             URL url = new URL(" https://www.instagram.com/" + login); //Открываем страницу инстаграмма
@@ -104,10 +108,14 @@ public class Person implements Serializable {
 
             getInfoFromJson();
 
-            if (isGetFollowers && this.followedBy < 10000) {
-                this.listFollowedBy = createListfollowedBy();
-            }
         } else this.isExist = false;
+    }
+
+    public Person (String login, Boolean isGetFollowers) {
+        this(login);
+        if (isGetFollowers && this.followedBy < 10000) {
+            this.listFollowedBy = createListfollowedBy();
+        }
     }
 
     private void getInfoFromJson() {

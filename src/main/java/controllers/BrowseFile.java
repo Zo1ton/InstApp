@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import logic.AccountParser;
 import objects.Person;
 
 import java.io.File;
@@ -42,7 +43,6 @@ public class BrowseFile {
                 System.err.println("Файл не существует");
             } else {
                 try {
-//                    Files.lines(Paths.get(pathToFile), StandardCharsets.UTF_8).forEach(System.out::println);
                     Files.lines(Paths.get(pathToFile), StandardCharsets.UTF_8).forEach(personsList::add);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -53,16 +53,16 @@ public class BrowseFile {
         if (!personsList.isEmpty()) {
             for (String name : personsList) {
                 System.out.println(name);
-                Person person = new Person(name, false);
-                System.out.println(person.getId());
-                System.out.println("============");
-                System.out.println(person.getUserName());
-                System.out.println("============");
-                System.out.println(person.getFollowedBy());
-                System.out.println("============");
-                System.out.println(person.getFollows());
-                System.out.println("============");
-                System.out.println("============");
+                Person person = new Person(name);
+                System.out.print(person.getUserName());
+                System.out.print(" - id-");
+                System.out.print(person.getId());
+                if (person.getFollowedBy() >= 1_000 && person.getFollows() >= 1_000) {
+                    System.out.println( " - это спам");
+                } else {
+                    System.out.println("Не спам");
+                }
+                new AccountParser().getPersonsListFromFile(person);
             }
         }
 
