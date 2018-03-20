@@ -16,24 +16,30 @@ public class AccountParser {
 
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(json);
-        JsonObject rootObject = rootElement.getAsJsonObject().getAsJsonObject("entry_data").getAsJsonArray("ProfilePage")
-                .get(0).getAsJsonObject().getAsJsonObject("graphql").getAsJsonObject("user");
+        JsonArray array = rootElement.getAsJsonObject().getAsJsonObject("entry_data").getAsJsonArray("ProfilePage")
+                .get(0).getAsJsonObject().getAsJsonObject("graphql").getAsJsonObject("user")
+                .getAsJsonObject("edge_owner_to_timeline_media").getAsJsonArray("edges");
 
         StringBuilder comments = new StringBuilder();
+        int arraySize = array.size() >= 12 ? 11 : array.size() - 1;
 
-        for (int i = 0; i <= 11; i++) {
+        if (array.size() != 0) {
+            System.out.println("arraySize:" + arraySize);
+            for (int i = 0; i <= arraySize; i++) {
+                System.out.println("i"+i);
+                JsonElement element = array.get(i);
+                JsonObject pages = element.getAsJsonObject();
+                pages = pages.getAsJsonObject("node");
+                pages = pages.getAsJsonObject("edge_media_to_caption");
+                array = pages.getAsJsonArray("edges");
 
-            JsonObject pages = rootObject.getAsJsonObject("edge_owner_to_timeline_media");
-            JsonArray array = pages.getAsJsonArray("edges");
-            JsonElement element = array.get(0);
-            pages = element.getAsJsonObject();
-            pages = pages.getAsJsonObject("node");
-            pages = pages.getAsJsonObject("edge_media_to_caption");
-            array = pages.getAsJsonArray("edges");
-            element = array.get(0);
-            pages = element.getAsJsonObject().getAsJsonObject("node");
+                if (array.size() > 0) {
+                    element = array.get(0);
+                    pages = element.getAsJsonObject().getAsJsonObject("node");
 
-            comments.append(pages.get("text").getAsString());
+                    comments.append(pages.get("text").getAsString());
+                }
+            }
         }
 
         System.out.println(comments);
