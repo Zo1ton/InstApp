@@ -49,22 +49,6 @@ public class BrowseFile {
                 }
             }
         }
-        
-        if (!personsList.isEmpty()) {
-            for (String name : personsList) {
-                System.out.println(name);
-                Person person = new Person(name);
-                System.out.print(person.getUserName());
-                System.out.print(" - id-");
-                System.out.print(person.getId());
-                if (person.getFollowedBy() >= 1_000 && person.getFollows() >= 1_000) {
-                    System.out.println( " - это спам");
-                } else {
-                    System.out.println("Не спам");
-                }
-                new AccountParser().getPersonsListFromFile(person);
-            }
-        }
-
+        new AccountParser().personsParser(personsList);
     }
 }

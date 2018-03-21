@@ -6,7 +6,7 @@
 
     <groupId>org.rnd.api</groupId>
     <artifactId>inst-app</artifactId>
-    <version>0.0.0.0059</version>
+    <version>0.0.0.0060</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.8.1</version>
+            <version>3.11.0</version>
         </dependency>
 
         <dependency>
