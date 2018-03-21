@@ -13,11 +13,11 @@ public class AccountParser {
     public void personsParser(List<String> personsList) {
         if (!personsList.isEmpty()) {
             for (String name : personsList) {
-                System.out.println(name);
+//                System.out.println(name);
                 Person person = new Person(name);
-                System.out.print(person.getUserName());
+                /*System.out.print(person.getUserName());
                 System.out.print(" - id-");
-                System.out.print(person.getId());
+                System.out.print(person.getId());*/
 
                 getFirst12PersonComments(person);
             }
@@ -27,9 +27,9 @@ public class AccountParser {
     public void getFirst12PersonComments(Person person) {
 
         String json = person.getJson();
-        System.out.println("==============");
+/*        System.out.println("==============");
         System.out.println(json);
-        System.out.println("==============");
+        System.out.println("==============");*/
 
         JsonParser parser = new JsonParser();
         JsonElement rootElement = parser.parse(json);
@@ -57,6 +57,13 @@ public class AccountParser {
                 }
             }
         }
-        System.out.println(comments);
+//        System.out.println(comments);
+        if (comments.toString().contains("#IPA")) {
+            System.out.println(comments.indexOf("#IPA"));
+            System.out.println(person.getUserName());
+        } else {
+            System.out.println(comments.indexOf("#IPA"));
+            System.out.println("---------------");
+        }
     }
 }
