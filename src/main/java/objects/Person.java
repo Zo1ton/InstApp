@@ -108,7 +108,9 @@ public class Person implements Serializable {
 
             getInfoFromJson();
 
-        } else this.isExist = false;
+        } else {
+            this.isExist = false;
+        }
     }
 
     public Person (String login, Boolean isGetFollowers) {

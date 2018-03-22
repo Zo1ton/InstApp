@@ -5,10 +5,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import objects.Person;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class AccountParser {
+
+    private static final Logger LOG = Logger.getLogger(AccountParser.class);
 
     public void personsParser(List<String> personsList) {
         if (!personsList.isEmpty()) {
@@ -57,12 +60,14 @@ public class AccountParser {
                 }
             }
         }
-//        System.out.println(comments);
-        if (comments.toString().contains("#IPA")) {
+
+        LOG.trace("User " + person.getUserName() + " comments: " + comments);
+
+        if (comments.toString().contains("три")) {
             System.out.println(comments.indexOf("#IPA"));
             System.out.println(person.getUserName());
         } else {
-            System.out.println(comments.indexOf("#IPA"));
+            System.out.println(comments.indexOf("IPA"));
             System.out.println("---------------");
         }
     }

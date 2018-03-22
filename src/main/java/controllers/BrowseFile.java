@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import logic.AccountParser;
-import objects.Person;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrowseFile {
+
+    private static final Logger LOG = Logger.getLogger(BrowseFile.class);
+
     @FXML private Button btnBrowse;
     @FXML private Button btnDownload;
     @FXML private TextField textInputField;
@@ -50,5 +53,6 @@ public class BrowseFile {
             }
         }
         new AccountParser().personsParser(personsList);
+        LOG.trace("END");
     }
 }
