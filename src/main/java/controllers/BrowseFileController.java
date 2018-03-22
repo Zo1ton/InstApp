@@ -17,9 +17,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseFile {
+public class BrowseFileController {
 
-    private static final Logger LOG = Logger.getLogger(BrowseFile.class);
+    private static final Logger LOG = Logger.getLogger(BrowseFileController.class);
 
     @FXML private Button btnBrowse;
     @FXML private Button btnDownload;

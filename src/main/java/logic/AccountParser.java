@@ -12,17 +12,20 @@ import java.util.List;
 public class AccountParser {
 
     private static final Logger LOG = Logger.getLogger(AccountParser.class);
+    static int count = 0;
 
     public void personsParser(List<String> personsList) {
         if (!personsList.isEmpty()) {
             for (String name : personsList) {
-//                System.out.println(name);
-                Person person = new Person(name);
-                /*System.out.print(person.getUserName());
-                System.out.print(" - id-");
-                System.out.print(person.getId());*/
 
-                getFirst12PersonComments(person);
+                Person person = new Person(name);
+
+                try {
+                    getFirst12PersonComments(person);
+                }   catch (StringIndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                    System.out.println("StringIndexOutOfBoundsException у юзера - " + person.getUserName());
+                }
             }
         }
     }
@@ -30,15 +33,21 @@ public class AccountParser {
     public void getFirst12PersonComments(Person person) {
 
         String json = person.getJson();
-/*        System.out.println("==============");
-        System.out.println(json);
-        System.out.println("==============");*/
 
         JsonParser parser = new JsonParser();
-        JsonElement rootElement = parser.parse(json);
-        JsonArray array = rootElement.getAsJsonObject().getAsJsonObject("entry_data").getAsJsonArray("ProfilePage")
-                .get(0).getAsJsonObject().getAsJsonObject("graphql").getAsJsonObject("user")
-                .getAsJsonObject("edge_owner_to_timeline_media").getAsJsonArray("edges");
+        JsonElement rootElement;
+        JsonArray array = new JsonArray();
+
+        try {
+            rootElement = parser.parse(json);
+            array = rootElement.getAsJsonObject().getAsJsonObject("entry_data").getAsJsonArray("ProfilePage")
+                    .get(0).getAsJsonObject().getAsJsonObject("graphql").getAsJsonObject("user")
+                    .getAsJsonObject("edge_owner_to_timeline_media").getAsJsonArray("edges");
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+            LOG.error("NPE у юзера - " + person.getUserName());
+        }
+
 
         StringBuilder comments = new StringBuilder();
         int arraySize = array.size() >= 12 ? 11 : array.size() - 1;
@@ -63,12 +72,14 @@ public class AccountParser {
 
         LOG.trace("User " + person.getUserName() + " comments: " + comments);
 
-        if (comments.toString().contains("три")) {
-            System.out.println(comments.indexOf("#IPA"));
+        System.out.println(count++);
+
+        if (comments.toString().toUpperCase().contains("ЯМАМА")) {
+            System.out.println(comments.toString().toUpperCase().indexOf("ЯМАМА"));
             System.out.println(person.getUserName());
         } else {
-            System.out.println(comments.indexOf("IPA"));
-            System.out.println("---------------");
+//            System.out.println(comments.indexOf("IPA"));
+//            System.out.println("---------------");
         }
     }
 }

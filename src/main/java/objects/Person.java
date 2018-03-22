@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import logic.JsonGetter;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -91,13 +92,11 @@ public class Person implements Serializable {
                 instpage.append(line);
             br.close();                                     //...и закрываем буффер
 
-            int x = instpage.indexOf(Tunes.startjson.getTune()) + Tunes.startjson.getTune().length();
-            int y = instpage.indexOf(Tunes.endjson.getTune(), x);
-            this.json = instpage.substring(x, y);
+            this.json = new JsonGetter().getJsonFromAccountPage(instpage.toString());
 
         } catch (MalformedURLException me) {                //Если же такого хоста, сайта, не существует
             LOG.error("Unknown host: " + me);               //Пишем ошибку
-            System.exit(0);                              //И выходим
+            System.exit(0);                          //И выходим
 
         } catch (IOException ioe) {                         //Если невозможно присоедениться к хосту
             LOG.error("Input error: " + ioe);               //и пишем ошибку
