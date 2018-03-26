@@ -5,12 +5,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BrowseFileController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BrowseFileController">
    <children>
       <Label layoutX="14.0" layoutY="27.0" prefHeight="17.0" prefWidth="37.0" text="Файл:" />
       <TextField fx:id="textInputField" layoutX="57.0" layoutY="23.0" onAction="#downloadFile" prefHeight="25.0" prefWidth="345.0" />
       <Button fx:id="btnBrowse" layoutX="419.0" layoutY="23.0" mnemonicParsing="false" onAction="#browseFile" prefHeight="25.0" prefWidth="83.0" text="Browse" />
-      <Button fx:id="btnDownload" layoutX="186.0" layoutY="59.0" mnemonicParsing="false" onAction="#downloadFile" prefHeight="25.0" prefWidth="104.0" text="Загрузить" />
+      <Button fx:id="btnDownload" layoutX="171.0" layoutY="91.0" mnemonicParsing="false" onAction="#downloadFile" prefHeight="25.0" prefWidth="178.0" text="Загрузить и искать" />
+      <Label layoutX="14.0" layoutY="61.0" prefHeight="17.0" prefWidth="96.0" text="Искать хэш теги:" />
+      <TextField fx:id="tagsField" layoutX="122.0" layoutY="57.0" prefHeight="25.0" prefWidth="380.0" />
    </children>
 </AnchorPane>

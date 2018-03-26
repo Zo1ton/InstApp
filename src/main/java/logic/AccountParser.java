@@ -14,14 +14,25 @@ public class AccountParser {
     private static final Logger LOG = Logger.getLogger(AccountParser.class);
     static int count = 0;
 
-    public void personsParser(List<String> personsList) {
+    public void findUsersWithTagsInComments(List<String> personsList, List<String> tags) {
         if (!personsList.isEmpty()) {
             for (String name : personsList) {
 
                 Person person = new Person(name);
 
                 try {
-                    getFirst12PersonComments(person);
+                    String comments = getFirst12PersonComments(person);
+
+                    for (String tag: tags) {
+                        if (comments.toString().toUpperCase().contains(tag)) {
+                            System.out.println(comments.toString().toUpperCase().indexOf(tag));
+                            System.out.println(person.getUserName());
+                        } else {
+//                          System.out.println(comments.indexOf("IPA"));
+//                          System.out.println("---------------");
+                        }
+
+                    }
                 }   catch (StringIndexOutOfBoundsException e) {
                     e.printStackTrace();
                     System.out.println("StringIndexOutOfBoundsException у юзера - " + person.getUserName());
@@ -30,7 +41,7 @@ public class AccountParser {
         }
     }
 
-    public void getFirst12PersonComments(Person person) {
+    private String getFirst12PersonComments(Person person) {
 
         String json = person.getJson();
 
@@ -47,7 +58,6 @@ public class AccountParser {
             npe.printStackTrace();
             LOG.error("NPE у юзера - " + person.getUserName());
         }
-
 
         StringBuilder comments = new StringBuilder();
         int arraySize = array.size() >= 12 ? 11 : array.size() - 1;
@@ -71,15 +81,8 @@ public class AccountParser {
         }
 
         LOG.trace("User " + person.getUserName() + " comments: " + comments);
-
         System.out.println(count++);
 
-        if (comments.toString().toUpperCase().contains("ЯМАМА")) {
-            System.out.println(comments.toString().toUpperCase().indexOf("ЯМАМА"));
-            System.out.println(person.getUserName());
-        } else {
-//            System.out.println(comments.indexOf("IPA"));
-//            System.out.println("---------------");
-        }
+        return comments.toString();
     }
 }

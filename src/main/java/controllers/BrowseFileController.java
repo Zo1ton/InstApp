@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BrowseFileController {
@@ -24,6 +25,7 @@ public class BrowseFileController {
     @FXML private Button btnBrowse;
     @FXML private Button btnDownload;
     @FXML private TextField textInputField;
+    @FXML private TextField tagsField;
 
     @FXML private void browseFile(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();    //Класс работы с диалогом выборки и сохранения
@@ -36,6 +38,7 @@ public class BrowseFileController {
     }
 
     @FXML private void downloadFile() {
+        LOG.info("Нажали кнопку 'Загрузить и искать'");
         String pathToFile = textInputField.getText();
         List<String> personsList = new ArrayList<String>();
         if (pathToFile == null || pathToFile.equals("")) {
@@ -52,7 +55,15 @@ public class BrowseFileController {
                 }
             }
         }
-        new AccountParser().personsParser(personsList);
+        new AccountParser().findUsersWithTagsInComments(personsList, getTags());
         LOG.trace("END");
+    }
+
+    private List<String> getTags() {
+        String tagsString = tagsField.getText().toUpperCase();
+        tagsString = tagsString.replaceAll("\\s","");
+        String[] s = tagsString.split("\\W");
+        System.out.println("Arrays.asList(s) - " + Arrays.asList(s));
+        return Arrays.asList(s);
     }
 }
