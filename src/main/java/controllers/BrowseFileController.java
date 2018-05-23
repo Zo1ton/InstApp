@@ -21,6 +21,7 @@ import java.util.List;
 public class BrowseFileController {
 
     private static final Logger LOG = Logger.getLogger(BrowseFileController.class);
+    public AccountParser accountParser = new AccountParser();
 
     @FXML private Button btnBrowse;
     @FXML private Button btnDownload;
@@ -55,14 +56,19 @@ public class BrowseFileController {
                 }
             }
         }
-        new AccountParser().findUsersWithTagsInComments(personsList, getTags());
+        accountParser.findUsersWithTagsInComments(personsList, getTags());
         LOG.trace("END");
     }
 
+    /**
+     * Принимает строку с хэштегами и разбивает её на отдельные слова
+     *
+     * @return Возвращает коллекцию строк
+     */
     private List<String> getTags() {
         String tagsString = tagsField.getText().toUpperCase();
-        tagsString = tagsString.replaceAll("\\s","");
-        String[] s = tagsString.split("\\W");
+        tagsString = tagsString.replaceAll("[^А-Яа-яA-Za-z0-9_]", " ").replaceAll("[\\s]{2,}", "").trim();
+        String[] s = tagsString.split(" ");
         System.out.println("Arrays.asList(s) - " + Arrays.asList(s));
         return Arrays.asList(s);
     }
