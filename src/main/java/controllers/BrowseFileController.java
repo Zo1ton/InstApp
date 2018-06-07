@@ -56,7 +56,8 @@ public class BrowseFileController {
                 }
             }
         }
-        accountParser.findUsersWithTagsInComments(personsList, getTags());
+        String tags = tagsField.getText().toUpperCase();
+        accountParser.findUsersWithTagsInComments(personsList, getTags(tags));
         LOG.trace("END");
     }
 
@@ -65,8 +66,7 @@ public class BrowseFileController {
      *
      * @return Возвращает коллекцию строк
      */
-    private List<String> getTags() {
-        String tagsString = tagsField.getText().toUpperCase();
+    private List<String> getTags(String tagsString) {
         tagsString = tagsString.replaceAll("[^А-Яа-яA-Za-z0-9_]", " ").replaceAll("[\\s]{2,}", "").trim();
         String[] s = tagsString.split(" ");
         System.out.println("Arrays.asList(s) - " + Arrays.asList(s));
