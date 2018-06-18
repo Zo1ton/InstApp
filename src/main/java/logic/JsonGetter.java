@@ -14,7 +14,7 @@ public class JsonGetter {
         int x = htmlPage.indexOf(Tunes.startjson.getTune()) + Tunes.startjson.getTune().length();
         int y = htmlPage.indexOf(Tunes.endjson.getTune(), x);
 
-            json = htmlPage.substring(x, y);
+        json = htmlPage.substring(x, y);
 
         return json;
     }

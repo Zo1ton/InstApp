@@ -12,10 +12,11 @@ import java.net.URL;
 public class PageParser {
 
     private static final Logger LOG = Logger.getLogger(Person.class);
+    JsonGetter jsonGetter = new JsonGetter();
 
-    public String getInstagramPageAsStringByLogin (String login) {
+    public String getPageJsonInfoAsStringByLogin(String login) {
 
-        String htmlString = "";
+        String jsonString = "";
 
         try {
             URL url = new URL(" https://www.instagram.com/" + login); //Открываем страницу инстаграмма
@@ -27,7 +28,7 @@ public class PageParser {
                 instpage.append(line);
             br.close();                                     //...и закрываем буффер
 
-            htmlString = new JsonGetter().getJsonFromAccountPage(instpage.toString());
+            jsonString = jsonGetter.getJsonFromAccountPage(instpage.toString());
 
         } catch (MalformedURLException me) {                //Если же такого хоста, сайта, не существует
             LOG.error("Unknown host: " + me);               //Пишем ошибку
@@ -36,6 +37,6 @@ public class PageParser {
         } catch (IOException ioe) {                         //Если невозможно присоедениться к хосту
             LOG.error("IOException: " + ioe);               //и пишем ошибку
         }
-        return htmlString;
+        return jsonString;
     }
 }

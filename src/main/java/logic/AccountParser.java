@@ -24,12 +24,12 @@ public class AccountParser {
                     String comments = getFirst12PersonComments(person);
 
                     for (String tag: tags) {
-                        if (comments.toString().toUpperCase().contains(tag)) {
-                            System.out.println(comments.toString().toUpperCase().indexOf(tag));
-                            System.out.println(person.getUserName());
+                        if (comments.toUpperCase().contains(tag)) {
+//                            System.out.println(comments.toUpperCase().indexOf(tag));
+                            System.out.print(person.getUserName());
+                            System.out.println(" - есть коменты с хэштегом " + tag);
                         } else {
-//                          System.out.println(comments.indexOf("IPA"));
-//                          System.out.println("---------------");
+                            System.out.println("У пользователя " + person.getUserName() + " нет коментов с хэштегом " + tag);
                         }
 
                     }

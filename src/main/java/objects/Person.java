@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import logic.JsonGetter;
 import logic.PageParser;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -76,7 +75,6 @@ public class Person implements Serializable {
         return json;
     }
 
-
     /**
      * По логину получаем json из html кода страницы, затем парсим json и получаем информацию о странице
      *
@@ -84,8 +82,7 @@ public class Person implements Serializable {
      */
     public Person(String login) {
 
-        String instpage = pageParser.getInstagramPageAsStringByLogin(login);
-        this.json = new JsonGetter().getJsonFromAccountPage(instpage);
+        this.json = pageParser.getPageJsonInfoAsStringByLogin(login);
 
         if (this.json != null && !this.json.equals("")) {
             this.isExist = true;
@@ -97,7 +94,7 @@ public class Person implements Serializable {
         }
     }
 
-    public Person (String login, Boolean isGetFollowers) {
+    public Person(String login, Boolean isGetFollowers) {
         this(login);
         if (isGetFollowers && this.followedBy < 10000) {
             this.listFollowedBy = createListfollowedBy();
