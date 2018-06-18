@@ -5,21 +5,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import logic.JsonGetter;
+import logic.PageParser;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import start.Tunes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 import java.util.List;
 
@@ -29,6 +24,7 @@ import java.util.List;
 public class Person implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(Person.class);
+    PageParser pageParser = new PageParser();
 
     private final Date CREATING_DATE = new Date();
     private transient String json;
@@ -80,29 +76,18 @@ public class Person implements Serializable {
         return json;
     }
 
-    public Person(String login) {       //По логину вытягиваем json из html страницы
 
-        try {
-            URL url = new URL(" https://www.instagram.com/" + login); //Открываем страницу инстаграмма
-            BufferedReader br = new BufferedReader(         //Создаём новый буффер
-                    new InputStreamReader(url.openStream()));  //Читаем страницу
-            String line;                                    //Создаём строковое значение
-            StringBuilder instpage = new StringBuilder();
-            while ((line = br.readLine()) != null)          //повторяем много раз, если есть ещё строка, тогда записываем её...
-                instpage.append(line);
-            br.close();                                     //...и закрываем буффер
+    /**
+     * По логину получаем json из html кода страницы, затем парсим json и получаем информацию о странице
+     *
+     * @param login логин инстаграм
+     */
+    public Person(String login) {
 
-            this.json = new JsonGetter().getJsonFromAccountPage(instpage.toString());
+        String instpage = pageParser.getInstagramPageAsStringByLogin(login);
+        this.json = new JsonGetter().getJsonFromAccountPage(instpage);
 
-        } catch (MalformedURLException me) {                //Если же такого хоста, сайта, не существует
-            LOG.error("Unknown host: " + me);               //Пишем ошибку
-            System.exit(0);                          //И выходим
-
-        } catch (IOException ioe) {                         //Если невозможно присоедениться к хосту
-            LOG.error("Input error: " + ioe);               //и пишем ошибку
-            LOG.info("Input error: " + ioe);
-        }
-        if (this.json != null) {
+        if (this.json != null && !this.json.equals("")) {
             this.isExist = true;
 
             getInfoFromJson();
