@@ -12,34 +12,35 @@ import java.util.List;
 public class AccountParser {
 
     private static final Logger LOG = Logger.getLogger(AccountParser.class);
-    static int count = 0;
 
+    /**
+     * Ищет аккаунты у которых в публикациях присутствуют посты с указанными тэгами
+     *
+     * @param personsList Список названий аккаунтов
+     * @param tags Список тэгов
+     */
     public void findUsersWithTagsInComments(List<String> personsList, List<String> tags) {
         if (!personsList.isEmpty()) {
-            for (String name : personsList) {
-
-                Person person = new Person(name);
-
-                try {
-                    String comments = getFirst12PersonComments(person);
-
-                    for (String tag: tags) {
-                        if (comments.toUpperCase().contains(tag)) {
-//                            System.out.println(comments.toUpperCase().indexOf(tag));
-                            System.out.print(person.getUserName());
-                            System.out.println(" - есть коменты с хэштегом " + tag);
-                        } else {
-                            System.out.println("У пользователя " + person.getUserName() + " нет коментов с хэштегом " + tag);
-                        }
-
+                personsList.forEach((name) -> {
+                    Person person = new Person(name);
+                    LOG.trace("Обрабатываем пользователя: " + name);
+                    try {
+                        String comments = getFirst12PersonComments(person);
+                        tags.forEach((tag) -> {
+                            if (comments.toUpperCase().contains(tag)) {
+                                LOG.info(name + " - есть коменты с хэштегом " + tag);
+                            } else {
+                                LOG.trace("У пользователя " + name + " нет коментов с хэштегом " + tag);
+                            }
+                        });
+                    }   catch (StringIndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                        LOG.error("StringIndexOutOfBoundsException у юзера - " + person.getUserName());
                     }
-                }   catch (StringIndexOutOfBoundsException e) {
-                    e.printStackTrace();
-                    System.out.println("StringIndexOutOfBoundsException у юзера - " + person.getUserName());
-                }
+                });
             }
         }
-    }
+
 
     private String getFirst12PersonComments(Person person) {
 
@@ -81,7 +82,6 @@ public class AccountParser {
         }
 
         LOG.trace("User " + person.getUserName() + " comments: " + comments);
-        System.out.println(count++);
 
         return comments.toString();
     }

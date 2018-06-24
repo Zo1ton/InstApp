@@ -22,8 +22,7 @@ import java.util.List;
  */
 public class Person implements Serializable {
 
-    private static final Logger LOG = Logger.getLogger(Person.class);
-    PageParser pageParser = new PageParser();
+    private static final transient Logger LOG = Logger.getLogger(Person.class);
 
     private final Date CREATING_DATE = new Date();
     private transient String json;
@@ -82,6 +81,7 @@ public class Person implements Serializable {
      */
     public Person(String login) {
 
+        PageParser pageParser = new PageParser();
         this.json = pageParser.getPageJsonInfoAsStringByLogin(login);
 
         if (this.json != null && !this.json.equals("")) {

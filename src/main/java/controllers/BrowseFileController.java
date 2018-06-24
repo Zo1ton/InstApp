@@ -58,7 +58,7 @@ public class BrowseFileController {
         }
         String tags = tagsField.getText().toUpperCase();
         accountParser.findUsersWithTagsInComments(personsList, getTags(tags));
-        LOG.trace("END");
+        LOG.debug("END");
     }
 
     /**
