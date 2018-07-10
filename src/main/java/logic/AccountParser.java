@@ -28,7 +28,7 @@ public class AccountParser {
                         String comments = getFirst12PersonComments(person);
                         tags.forEach((tag) -> {
                             if (comments.toUpperCase().contains(tag)) {
-                                LOG.info(name + " - есть коменты с хэштегом " + tag);
+                                LOG.info("https://www.instagram.com/" + name + " - есть коменты с хэштегом " + tag);
                             } else {
                                 LOG.trace("У пользователя " + name + " нет коментов с хэштегом " + tag);
                             }

@@ -11,10 +11,12 @@ public class JsonGetter {
 
         String json;
 
-        int x = htmlPage.indexOf(Tunes.startjson.getTune()) + Tunes.startjson.getTune().length();
-        int y = htmlPage.indexOf(Tunes.endjson.getTune(), x);
+        int startPoint = htmlPage.indexOf(Tunes.startjson.getTune()) + Tunes.startjson.getTune().length();
+        int endPoint = htmlPage.indexOf(Tunes.endjson.getTune(), startPoint);
+        LOG.trace("startPoint:" + startPoint);
+        LOG.trace("endPoint:" + endPoint);
 
-        json = htmlPage.substring(x, y);
+        json = htmlPage.substring(startPoint, endPoint);
 
         return json;
     }
