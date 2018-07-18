@@ -6,11 +6,12 @@
 
     <groupId>org.rnd.api</groupId>
     <artifactId>inst-app</artifactId>
-    <version>0.0.0.0070</version>
+    <version>0.0.0.0071</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <poi.version>3.17</poi.version>
     </properties>
 
     <developers>
@@ -52,6 +53,17 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
         </dependency>
 
         <dependency>
