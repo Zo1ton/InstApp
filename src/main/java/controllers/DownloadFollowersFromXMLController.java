@@ -15,9 +15,8 @@ public class DownloadFollowersFromXMLController {
     @FXML private Button btnChooseFile;
     @FXML private Button btnDownload;
 
-    ExcelParser excelParser = new ExcelParser();
-
-    InstAppFileChooser chooser = new InstAppFileChooser();;
+    private ExcelParser excelParser = new ExcelParser();
+    private InstAppFileChooser chooser = new InstAppFileChooser();;
 
     @FXML private void browseFile(ActionEvent actionEvent) {
         String pathToFile = chooser.getPathToFile(actionEvent, "Open Document", "XLSX files (*.xlsx)", "*.xlsx");

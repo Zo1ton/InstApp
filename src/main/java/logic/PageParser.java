@@ -12,7 +12,7 @@ import java.net.URL;
 public class PageParser {
 
     private static final Logger LOG = Logger.getLogger(Person.class);
-    JsonGetter jsonGetter = new JsonGetter();
+    private JsonGetter jsonGetter = new JsonGetter();
 
     public String getPageJsonInfoAsStringByLogin(String login) {
 

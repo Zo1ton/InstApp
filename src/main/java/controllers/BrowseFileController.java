@@ -20,7 +20,7 @@ import java.util.List;
 public class BrowseFileController {
 
     private static final Logger LOG = Logger.getLogger(BrowseFileController.class);
-    public AccountParser accountParser = new AccountParser();
+    private AccountParser accountParser = new AccountParser();
     private InstAppFileChooser chooser = new InstAppFileChooser();
 
     @FXML private Button btnBrowse;
