@@ -2,11 +2,10 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
 import logic.AccountParser;
+import logic.InstAppFileChooser;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -22,6 +21,7 @@ public class BrowseFileController {
 
     private static final Logger LOG = Logger.getLogger(BrowseFileController.class);
     public AccountParser accountParser = new AccountParser();
+    private InstAppFileChooser chooser = new InstAppFileChooser();
 
     @FXML private Button btnBrowse;
     @FXML private Button btnDownload;
@@ -29,13 +29,8 @@ public class BrowseFileController {
     @FXML private TextField tagsField;
 
     @FXML private void browseFile(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();    //Класс работы с диалогом выборки и сохранения
-        fileChooser.setTitle("Open Document");          //Заголовок диалога
-        FileChooser.ExtensionFilter extFilter =
-                new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");//Расширение
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(((Node)actionEvent.getSource()).getScene().getWindow());//Указываем текущую сцену CodeNote.mainStage
-        textInputField.setText(file.getAbsolutePath());
+        String pathToFile = chooser.getPathToFile(actionEvent, "Open Document", "TXT files (*.txt)", "*.txt");
+        textInputField.setText(pathToFile);
     }
 
     @FXML private void downloadFile() {

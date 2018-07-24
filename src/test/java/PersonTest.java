@@ -9,7 +9,7 @@ public class PersonTest {
     public void testGetId() {
 
         String login = "ngageman61";
-        Person person = new Person(login, false);
+        Person person = new Person(login);
 
         assertEquals(person.getId(), 1418547643L);
         assertEquals(person.getUserName(), login);

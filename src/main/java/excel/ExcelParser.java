@@ -13,12 +13,11 @@ import java.util.Map;
 
 public class ExcelParser {
 
-//    public Map<Long, String> getExcelSheet() {
-    public void getExcelSheet() {
+    public Map<Long, String> getExcelSheet(String pathTofile) {
         Map<Long, String> map = new HashMap<>();
 
         try {
-            File file = new File("C:\\Users\\sbt-vdovin-ai\\Downloads\\mila_rnd_following_full.xlsx");
+            File file = new File(pathTofile);
             FileInputStream stream = new FileInputStream(file);
             XSSFWorkbook workbook = new XSSFWorkbook(stream);
             XSSFSheet sheet = workbook.getSheetAt(0);
@@ -44,7 +43,6 @@ public class ExcelParser {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        map.forEach((k,v)->System.out.println("K-" + k + " V-" + v));
-//        return map;
+        return map;
     }
 }

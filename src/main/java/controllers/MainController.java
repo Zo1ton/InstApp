@@ -70,7 +70,7 @@ public class MainController {
         LOG.info("Нажали на кнопку Запросить");
         String login = textField.getText().isEmpty() ? table.getSelectionModel().getSelectedItem().getUserName() : textField.getText();
         if (!login.isEmpty()) {
-            Person person = new Person(login, cbFol.isSelected());          // Создаем новую запись пользователя
+            Person person = new Person(login);          // Создаем новую запись пользователя
             if (person.isExist()) {
                 labelInfo.setText(person.getInfoAsString());
                 if (map.containsKey(person.getId())) {
@@ -190,11 +190,25 @@ public class MainController {
     @FXML
     public void browseFile(ActionEvent actionEvent) {
         LOG.info("Нажали кнопку 'Обработать подписчиков'");
+        createModalWindow(actionEvent, "Загрузка данных из файла", "../fxml/browseFile.fxml");
+    }
+
+    @FXML
+    public void openAboutForm(ActionEvent actionEvent) {
+        createModalWindow(actionEvent, "О программе", "../fxml/aboutForm.fxml");
+    }
+
+    @FXML
+    public void downloadFollowersFromXML(ActionEvent actionEvent) {
+        createModalWindow(actionEvent, "Загрузка подписчиков из XML-файла", "../fxml/downloadFollowersFromXML.fxml");
+    }
+
+    private void createModalWindow (ActionEvent actionEvent, String title, String controller) {
 
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/browseFile.fxml"));
-            stage.setTitle("Загрузка данных из файла");
+            Parent root = FXMLLoader.load(getClass().getResource(controller));
+            stage.setTitle(title);
             Image ico = new Image("images/InstICO_180_180.png");
             stage.getIcons().add(ico);
             stage.setResizable(false);
@@ -202,10 +216,8 @@ public class MainController {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((MenuItem)actionEvent.getSource()).getParentPopup().getOwnerWindow().getScene().getWindow());
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
