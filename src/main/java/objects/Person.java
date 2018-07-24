@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.List;
 
 /**
  * Created by SBT-Vdovin-AI on 10.07.2017.
@@ -20,9 +19,10 @@ public class Person implements Serializable {
 
     private final Date CREATING_DATE = new Date();
     private transient String json;
-    private int followedBy;     // Подписчики (сколько на аккаунт людей подписано)
-    private List<String> listFollowedBy = new ArrayList<>();
-    private int follows;        // Подписки (на скольких подписан)
+    private int followedBy; // Подписчики (сколько на аккаунт людей подписано)
+    private Map<Date, Map<Long, String>> mapFollowedBy; // Коллекция подписчиков
+    private int follows;    // Подписки (на скольких подписан)
+    private Map<Date, Map<Long, String>> mapFollows;        // Коллекция подписок
     private int posts;
     private long id;
     private String userName;
@@ -60,12 +60,24 @@ public class Person implements Serializable {
         return isExist;
     }
 
-    public List<String> getListFollowedBy() {
-        return listFollowedBy;
-    }
-
     public String getJson() {
         return json;
+    }
+
+    public Map<Date, Map<Long, String>> getMapFollowedBy() {
+        return mapFollowedBy;
+    }
+
+    public void setMapFollowedBy(Map<Date, Map<Long, String>> mapFollowedBy) {
+        this.mapFollowedBy = mapFollowedBy;
+    }
+
+    public Map<Date, Map<Long, String>> getMapFollows() {
+        return mapFollows;
+    }
+
+    public void setMapFollows(Map<Date, Map<Long, String>> mapFollows) {
+        this.mapFollows = mapFollows;
     }
 
     /**

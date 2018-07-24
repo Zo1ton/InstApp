@@ -67,7 +67,7 @@
                               <Button fx:id="btnRq" layoutX="166.0" layoutY="58.0" mnemonicParsing="false" onAction="#pressOnButton" prefHeight="25.0" prefWidth="116.0" text="Запросить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
                               <Button fx:id="btnMerge" layoutX="214.0" layoutY="104.0" mnemonicParsing="false" onAction="#merge" prefHeight="25.0" prefWidth="116.0" text="Сравнить" AnchorPane.rightAnchor="14.0" />
                               <Button fx:id="btnShowHistory" layoutX="15.0" layoutY="104.0" mnemonicParsing="false" onAction="#getHistory" text="Посмотреть историю" AnchorPane.leftAnchor="15.0" />
-                              <Label fx:id="labelInfo" layoutX="15.0" layoutY="141.0" prefHeight="244.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="141.0" />
+                              <Label fx:id="labelInfo" layoutX="15.0" layoutY="141.0" prefHeight="244.0" prefWidth="266.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="141.0" />
                               <Label fx:id="labelCount" layoutX="15.0" layoutY="387.0" prefHeight="17.0" prefWidth="266.0" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
                            </children>
                         </AnchorPane>
