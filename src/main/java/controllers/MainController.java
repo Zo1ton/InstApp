@@ -64,20 +64,9 @@ public class MainController extends BaseController {
         String login = textField.getText().isEmpty() ? table.getSelectionModel().getSelectedItem().getUserName() : textField.getText();
         if (!login.isEmpty()) {
             Person person = new Person(login);          // Создаем новую запись пользователя
-            List<Person> list;
             if (person.isExist()) {
                 labelInfo.setText(person.getInfoAsString());
-                if (map.containsKey(person.getId())) {
-                    list = map.get(person.getId());
-                    list.add(person);
-                    map.put(person.getId(), list);
-                    LOG.info("Обновлена запись " + person.getUserName() + " - id - " + person.getId());
-                } else {
-                    list = new ArrayList<>();
-                    list.add(person);
-                    map.put(person.getId(), list);
-                    LOG.info("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
-                }
+                putPersonToMap(person);
             } else {
                 labelInfo.setText("Такого пользователя не существует!");
             }
@@ -85,6 +74,26 @@ public class MainController extends BaseController {
             labelInfo.setText("Введите логин!");
         }
         tableList.updateList(map);
+    }
+
+    /**
+     * Если уже есть мапа с такис пользователем, тогда добавляем пользователя в массив,
+     * если нет тогда создаем новый массив
+     * @param person - пользователь инстаграма
+     */
+    private void putPersonToMap(Person person) {
+        List<Person> list;
+        if (map.containsKey(person.getId())) {
+            list = map.get(person.getId());
+            list.add(person);
+            map.put(person.getId(), list);
+            LOG.info("Обновлена запись " + person.getUserName() + " - id - " + person.getId());
+        } else {
+            list = new ArrayList<>();
+            list.add(person);
+            map.put(person.getId(), list);
+            LOG.info("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
+        }
     }
 
     public static void startMain() {
