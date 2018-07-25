@@ -1,15 +1,10 @@
 package controllers;
 
+import controllers.ext.BaseController;
 import interfaces.impl.CollectionInstagramAccounts;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import objects.Person;
 import org.apache.log4j.Logger;
 import start.Tunes;
@@ -24,34 +19,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-public class MainController {
+public class MainController extends BaseController {
 
     private static final Logger LOG = Logger.getLogger(MainController.class);
 
     private static Map<Long, List<Person>> map = new HashMap<>();
-    private List<Person> list = new ArrayList<>();
     private CollectionInstagramAccounts tableList = new CollectionInstagramAccounts();
 
     @FXML private TextField textField;
     @FXML private Label labelInfo;
     @FXML private Label labelCount;
     @FXML private TableView<Person> table;
-    @FXML private TableColumn<Person, Long> idCol;
-    @FXML private TableColumn<Person, String> loginCol;
-    @FXML private TableColumn<Person, Integer> postsCol;
-    @FXML private TableColumn<Person, Integer> followersCol;
-    @FXML private TableColumn<Person, Integer> followingCol;
+    @FXML private TableColumn<Person, Long> idColumn;
+    @FXML private TableColumn<Person, String> loginColumn;
+    @FXML private TableColumn<Person, Integer> postsColumn;
+    @FXML private TableColumn<Person, Integer> followersColumn;
+    @FXML private TableColumn<Person, Integer> followingColumn;
 
     @FXML
     public void initialize() {
         tableList.updateList(map);
         updateLabelCount();
         // устанавливаем тип и значения которые должны хранится в колонках
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        loginCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        postsCol.setCellValueFactory(new PropertyValueFactory<>("posts"));
-        followingCol.setCellValueFactory(new PropertyValueFactory<>("followedBy"));
-        followersCol.setCellValueFactory(new PropertyValueFactory<>("follows"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        loginColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        postsColumn.setCellValueFactory(new PropertyValueFactory<>("posts"));
+        followingColumn.setCellValueFactory(new PropertyValueFactory<>("followedBy"));
+        followersColumn.setCellValueFactory(new PropertyValueFactory<>("follows"));
 
         tableList.getInstagramList().addListener(new ListChangeListener<Person>() {
             @Override
@@ -65,11 +59,12 @@ public class MainController {
     }
 
     @FXML
-    public void pressOnButton() {
+    public void pressRequestButton() {
         LOG.info("Нажали на кнопку Запросить");
         String login = textField.getText().isEmpty() ? table.getSelectionModel().getSelectedItem().getUserName() : textField.getText();
         if (!login.isEmpty()) {
             Person person = new Person(login);          // Создаем новую запись пользователя
+            List<Person> list;
             if (person.isExist()) {
                 labelInfo.setText(person.getInfoAsString());
                 if (map.containsKey(person.getId())) {
@@ -181,21 +176,4 @@ public class MainController {
         createModalWindow(actionEvent, "Загрузка подписчиков из XML-файла", "../fxml/downloadFollowersFromXML.fxml");
     }
 
-    private void createModalWindow (ActionEvent actionEvent, String title, String controller) {
-
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource(controller));
-            stage.setTitle(title);
-            Image ico = new Image("images/InstICO_180_180.png");
-            stage.getIcons().add(ico);
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((MenuItem)actionEvent.getSource()).getParentPopup().getOwnerWindow().getScene().getWindow());
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

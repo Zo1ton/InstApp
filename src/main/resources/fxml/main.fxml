@@ -49,11 +49,11 @@
                            <children>
                               <TableView fx:id="table" onMouseClicked="#showPersonHistory" prefHeight="200.0" prefWidth="372.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="idCol" prefWidth="75.0" text="id" />
-                                  <TableColumn fx:id="loginCol" prefWidth="75.0" text="login" />
-                                  <TableColumn fx:id="postsCol" prefWidth="75.0" text="posts" />
-                                  <TableColumn fx:id="followingCol" prefWidth="75.0" text="following" />
-                                  <TableColumn fx:id="followersCol" prefWidth="75.0" text="followers" />
+                                  <TableColumn fx:id="idColumn" prefWidth="75.0" text="id" />
+                                  <TableColumn fx:id="loginColumn" prefWidth="75.0" text="login" />
+                                  <TableColumn fx:id="postsColumn" prefWidth="75.0" text="posts" />
+                                  <TableColumn fx:id="followingColumn" prefWidth="75.0" text="following" />
+                                  <TableColumn fx:id="followersColumn" prefWidth="75.0" text="followers" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -63,8 +63,8 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="textField" onAction="#pressOnButton" prefHeight="25.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-                              <Button fx:id="btnRq" layoutX="166.0" layoutY="58.0" mnemonicParsing="false" onAction="#pressOnButton" prefHeight="25.0" prefWidth="116.0" text="Запросить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
+                              <TextField fx:id="textField" onAction="#pressRequestButton" prefHeight="25.0" prefWidth="266.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+                              <Button fx:id="btnRq" layoutX="166.0" layoutY="58.0" mnemonicParsing="false" onAction="#pressRequestButton" prefHeight="25.0" prefWidth="116.0" text="Запросить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
                               <Button fx:id="btnMerge" layoutX="214.0" layoutY="104.0" mnemonicParsing="false" onAction="#merge" prefHeight="25.0" prefWidth="116.0" text="Сравнить" AnchorPane.rightAnchor="14.0" />
                               <Button fx:id="btnShowHistory" layoutX="15.0" layoutY="104.0" mnemonicParsing="false" onAction="#getHistory" text="Посмотреть историю" AnchorPane.leftAnchor="15.0" />
                               <Label fx:id="labelInfo" layoutX="15.0" layoutY="141.0" prefHeight="244.0" prefWidth="266.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="141.0" />
