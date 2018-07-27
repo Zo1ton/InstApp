@@ -8,10 +8,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import objects.DataBase;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
 public class BaseController {
+
+    private static final Logger LOG = Logger.getLogger(BaseController.class);
+    protected DataBase db = new DataBase();
 
     protected void createModalWindow (ActionEvent actionEvent, String title, String controller) {
 

@@ -7,15 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import objects.Person;
 import org.apache.log4j.Logger;
-import start.Tunes;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.*;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -23,7 +20,6 @@ public class MainController extends BaseController {
 
     private static final Logger LOG = Logger.getLogger(MainController.class);
 
-    private static Map<Long, List<Person>> map = new HashMap<>();
     private CollectionInstagramAccounts tableList = new CollectionInstagramAccounts();
 
     @FXML private TextField textField;
@@ -38,7 +34,7 @@ public class MainController extends BaseController {
 
     @FXML
     public void initialize() {
-        tableList.updateList(map);
+        tableList.updateList(db.getMap());
         updateLabelCount();
         // устанавливаем тип и значения которые должны хранится в колонках
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -73,7 +69,7 @@ public class MainController extends BaseController {
         } else {
             labelInfo.setText("Введите логин!");
         }
-        tableList.updateList(map);
+        tableList.updateList(db.getMap());
     }
 
     /**
@@ -83,45 +79,16 @@ public class MainController extends BaseController {
      */
     private void putPersonToMap(Person person) {
         List<Person> list;
-        if (map.containsKey(person.getId())) {
-            list = map.get(person.getId());
+        if (db.getMap().containsKey(person.getId())) {
+            list = db.getMap().get(person.getId());
             list.add(person);
-            map.put(person.getId(), list);
+            db.getMap().put(person.getId(), list);
             LOG.info("Обновлена запись " + person.getUserName() + " - id - " + person.getId());
         } else {
             list = new ArrayList<>();
             list.add(person);
-            map.put(person.getId(), list);
+            db.getMap().put(person.getId(), list);
             LOG.info("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
-        }
-    }
-
-    public static void startMain() {
-        // Если файл есть, пытаемся его десюрилизовать, если нет, создаем новую коллекцию.
-        File file = new File(Tunes.dbFile.getTune());
-        if (file.exists()) {
-            try (FileInputStream fis = new FileInputStream(Tunes.dbFile.getTune());
-                 ObjectInputStream in = new ObjectInputStream(fis)) {
-                map = (Map) in.readObject();
-            } catch (IOException io) {
-                io.printStackTrace();
-                map = new HashMap<>();
-            } catch (ClassNotFoundException cnfe) {
-                LOG.error("ClassNotFoundException\n" + cnfe);
-                map = new HashMap<>();
-            }
-        } else {
-            map = new HashMap<>();
-        }
-    }
-
-    public static void endMain() {
-        try (FileOutputStream fos = new FileOutputStream(Tunes.dbFile.getTune());
-             ObjectOutputStream out = new ObjectOutputStream(fos)) {
-            out.writeObject(map);
-        } catch (IOException io) {
-            LOG.error("IOException при попытке прочитать\\найти " + Tunes.dbFile.getTune() + " файл");
-            io.printStackTrace();
         }
     }
 
@@ -148,7 +115,7 @@ public class MainController extends BaseController {
      */
     private String getPersonHistory(Long id) {
         StringBuilder str = new StringBuilder("");
-        for (Map.Entry<Long, List<Person>> entry : map.entrySet()) {
+        for (Map.Entry<Long, List<Person>> entry : db.getMap().entrySet()) {
             if (entry.getKey().equals(id)) {
                 for (Person p : entry.getValue()) {
                     str.insert(0, String.format("Date - %s UserName - %s Followers - %,d\n",

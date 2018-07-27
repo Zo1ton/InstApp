@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.ext.BaseController;
 import excel.ExcelParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +10,7 @@ import logic.InstAppFileChooser;
 
 import java.util.Map;
 
-public class DownloadFollowersFromXMLController {
+public class DownloadFollowersFromXMLController extends BaseController {
 
     @FXML private TextField textAreaPathToFile;
     @FXML private Button btnChooseFile;
@@ -23,8 +24,9 @@ public class DownloadFollowersFromXMLController {
         textAreaPathToFile.setText(pathToFile);
     }
 
-    @FXML private void downloadXMLFile() {
+    @FXML private Map<Long, String> downloadXMLFile() {
         Map<Long, String> map = excelParser.getExcelSheet(textAreaPathToFile.getText());
         map.forEach((k,v)->System.out.println("K-" + k + " V-" + v));
+        return map;
     }
 }
