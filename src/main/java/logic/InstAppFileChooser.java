@@ -11,6 +11,15 @@ public class InstAppFileChooser {
 
     private static final Logger LOG = Logger.getLogger(InstAppFileChooser.class);
 
+    /**
+     * Метод создает окно выбора файла.
+     *
+     * @param actionEvent - actionEvent
+     * @param title - Заголовок окна
+     * @param description - Описаное расширений
+     * @param extensions - Возможные к выбору расширения файлов
+     * @return Полный путь к файлу
+     */
     public String getPathToFile(ActionEvent actionEvent, String title, String description, String extensions) {
         FileChooser fileChooser = new FileChooser();    //Класс работы с диалогом выборки и сохранения
         fileChooser.setTitle(title);                    //Заголовок диалога
