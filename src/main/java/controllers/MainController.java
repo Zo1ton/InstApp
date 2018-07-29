@@ -14,7 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
 
 public class MainController extends BaseController {
 
@@ -62,7 +61,7 @@ public class MainController extends BaseController {
             Person person = new Person(login);          // Создаем новую запись пользователя
             if (person.isExist()) {
                 labelInfo.setText(person.getInfoAsString());
-                putPersonToMap(person);
+                db.putPersonToMap(person);
             } else {
                 labelInfo.setText("Такого пользователя не существует!");
             }
@@ -70,26 +69,6 @@ public class MainController extends BaseController {
             labelInfo.setText("Введите логин!");
         }
         tableList.updateList(db.getMap());
-    }
-
-    /**
-     * Если уже есть мапа с такис пользователем, тогда добавляем пользователя в массив,
-     * если нет тогда создаем новый массив
-     * @param person - пользователь инстаграма
-     */
-    private void putPersonToMap(Person person) {
-        List<Person> list;
-        if (db.getMap().containsKey(person.getId())) {
-            list = db.getMap().get(person.getId());
-            list.add(person);
-            db.getMap().put(person.getId(), list);
-            LOG.info("Обновлена запись " + person.getUserName() + " - id - " + person.getId());
-        } else {
-            list = new ArrayList<>();
-            list.add(person);
-            db.getMap().put(person.getId(), list);
-            LOG.info("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
-        }
     }
 
     private void updateLabelCount() {
@@ -133,7 +112,9 @@ public class MainController extends BaseController {
     }
 
     public void showPersonHistory(MouseEvent mouseEvent) {
-
+        LOG.info("Двойной клик на пользователе");
+        selectedPerson = table.getSelectionModel().getSelectedItem().getUserName();
+        createModalWindowMouse(mouseEvent, "Просмотр истории пользователя", "../fxml/personHistory.fxml");
     }
 
     @FXML
@@ -149,6 +130,7 @@ public class MainController extends BaseController {
 
     @FXML
     public void downloadFollowersFromXML(ActionEvent actionEvent) {
+        selectedPerson = table.getSelectionModel().getSelectedItem().getUserName();
         createModalWindow(actionEvent, "Загрузка подписчиков из XML-файла", "../fxml/downloadFollowersFromXML.fxml");
     }
 
