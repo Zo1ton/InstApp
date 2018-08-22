@@ -35,7 +35,7 @@ public abstract class BaseController {
             stage.initOwner(((MenuItem)actionEvent.getSource()).getParentPopup().getOwnerWindow().getScene().getWindow());
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.info(e.toString());
         }
     }
 
@@ -53,7 +53,7 @@ public abstract class BaseController {
             stage.initOwner(((TableView)mouseEvent.getSource()).getScene().getWindow());
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.info(e.toString());
         }
     }
 }

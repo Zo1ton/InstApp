@@ -32,8 +32,7 @@ public class ExcelParser {
 
                     if (cell.getColumnIndex() == 0) {
                         id = (long) (cell.getNumericCellValue());
-                    }
-                    if (cell.getColumnIndex() == 1) {
+                    } else if (cell.getColumnIndex() == 1) {
                         name = cell.getStringCellValue();
                     }
                 }

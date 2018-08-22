@@ -89,19 +89,20 @@ public class MainController extends BaseController {
     /**
      * По id аккаунта инстаграм, показывает последнии сохраненные данные, т.е. историю
      * Возвращается истария с последней записи
+     *
      * @param id - id пользователя инстаграм
      * @return строка с историей
      */
     private String getPersonHistory(Long id) {
-        StringBuilder str = new StringBuilder("");
+        StringBuilder str = new StringBuilder();
         for (Map.Entry<Long, List<Person>> entry : db.getMap().entrySet()) {
             if (entry.getKey().equals(id)) {
-                for (Person p : entry.getValue()) {
-                    str.insert(0, String.format("Date - %s UserName - %s Followers - %,d\n",
-                            p.getCREATING_DATE(),
-                            p.getUserName(),
-                            p.getFollowedBy()));
-                }
+                entry.getValue().forEach((p) ->
+                        str.insert(0, String.format("Date - %s UserName - %s Followers - %,d\n",
+                                p.getCREATING_DATE(),
+                                p.getUserName(),
+                                p.getFollowedBy()))
+                );
             }
         }
         return str.toString();

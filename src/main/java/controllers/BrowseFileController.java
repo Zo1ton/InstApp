@@ -47,7 +47,7 @@ public class BrowseFileController {
                 try {
                     Files.lines(Paths.get(pathToFile), StandardCharsets.UTF_8).forEach(personsList::add);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOG.info(e.toString());
                 }
             }
         }
