@@ -1,20 +1,25 @@
 // Copyright Леонид Залюбовский
+
 try {
 // Объявление переменных ------------------------------------------------------------
-    var a = document.getElementsByClassName("_8q670 _b9n99");   // Instagram
-    var x = document.getElementsByClassName("_gs38e");                // Instagram
-    var n = document.getElementsByClassName("_6e4x5");               // Instagram
+    var x = document.getElementsByClassName("j6cq2");           	// класс тега div списка аккаунтов
+    var a = document.getElementsByClassName("rKm58  _6xe7A");   	// класс тега ul списка аккаунтов
+    var n = document.getElementsByClassName("wo9IH");           	// класс тега li списка тег аккаунтов
     var timeoutID ='';
     var t = 1;
 
 // Выборка кол-ва подписчиков и подписок по языку RU-EN ---------
+// Классы расположены на главной странице Подписчики-Подписки
 
-    if (document.getElementsByClassName("_lfwfo _euzqy")[0].innerHTML =="Подписчики" || document.getElementsByClassName("_lfwfo _euzqy")[0].innerHTML =="Followers" ){
-        var i = document.getElementsByClassName("_fd86t")[1].innerHTML;
+    titleH1 = document.getElementsByClassName("m82CD")[0];	// класс тега h1 заголовка окна
+    titleDIV = titleH1.getElementsByTagName("div")[0];		  // тег div заголовка
+    title = titleDIV.innerHTML;
+
+    if (title=="Подписчики" || title=="Followers" ){
+        var i = document.getElementsByClassName("g47SY")[1].innerHTML;
     }else{
-        var i = document.getElementsByClassName("_fd86t")[2].innerHTML;
+        var i = document.getElementsByClassName("g47SY")[2].innerHTML;
     }
-
 
 // --------------------------------------------------------------------------------------------
 
@@ -26,7 +31,7 @@ try {
     i = i.join('');
     console.log('%cПАРСЕР ПОДПИСЧИКОВ INSTAGRAM', 'color: #1d6ba3; font-size:28px;');
     console.log('%c--------------------------------------------------------------------------------------------//', 'color: #a22e1c; font-size:16px;');
-    console.log('%cРазработал Леонид Залюбовский 2017 | www.leoneed.pro | http://Instagram.com/leoneed.pro', 'color: #1d6ba3; font-size:14px;');
+    console.log('%cРазработал Леонид Залюбовский 2018 | www.leoneed.pro | http://Instagram.com/leoneed.pro', 'color: #1d6ba3; font-size:14px;');
     console.log('%c--------------------------------------------------------------------------------------------//', 'color: #a22e1c; font-size:16px;');
     console.log('%cКол-во аккаунтов для сбора: '+i +' шт.', 'color: #13a555; font-size:20px;');
     console.log('%cНачался сбор данных, дождитесь выполнения...', 'color: #13a555; font-size:20px;');

@@ -36,6 +36,7 @@ public abstract class BaseController {
             stage.show();
         } catch (IOException e) {
             LOG.info(e.toString());
+            e.printStackTrace();
         }
     }
 

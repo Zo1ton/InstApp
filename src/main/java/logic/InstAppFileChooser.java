@@ -15,9 +15,9 @@ public class InstAppFileChooser {
      * Метод создает окно выбора файла.
      *
      * @param actionEvent - actionEvent
-     * @param title - Заголовок окна
+     * @param title       - Заголовок окна
      * @param description - Описаное расширений
-     * @param extensions - Возможные к выбору расширения файлов
+     * @param extensions  - Возможные к выбору расширения файлов
      * @return Полный путь к файлу
      */
     public String getPathToFile(ActionEvent actionEvent, String title, String description, String extensions) {
@@ -25,7 +25,12 @@ public class InstAppFileChooser {
         fileChooser.setTitle(title);                    //Заголовок диалога
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(description, extensions);   //Расширение
         fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(((Node)actionEvent.getSource()).getScene().getWindow());     //Указываем текущую сцену CodeNote.mainStage
-        return file.getAbsolutePath();
+        try {
+            File file = fileChooser.showOpenDialog(((Node) actionEvent.getSource()).getScene().getWindow());     //Указываем текущую сцену CodeNote.mainStage
+            return file.getAbsolutePath();
+        } catch (NullPointerException e) {
+            LOG.info("Закрыли окно выбора файла");
+        }
+        return null;
     }
 }

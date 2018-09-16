@@ -4,16 +4,12 @@ import controllers.ext.BaseController;
 import interfaces.impl.CollectionInstagramAccounts;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
 import objects.Person;
 import org.apache.log4j.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.util.Map;
-import java.util.List;
 
 public class MainController extends BaseController {
 
@@ -95,16 +91,16 @@ public class MainController extends BaseController {
      */
     private String getPersonHistory(Long id) {
         StringBuilder str = new StringBuilder();
-        for (Map.Entry<Long, List<Person>> entry : db.getMap().entrySet()) {
-            if (entry.getKey().equals(id)) {
-                entry.getValue().forEach((p) ->
+        db.getMap().forEach((k, v) -> {
+            if (k.equals(id)){
+                v.forEach((p) ->
                         str.insert(0, String.format("Date - %s UserName - %s Followers - %,d\n",
                                 p.getCREATING_DATE(),
                                 p.getUserName(),
                                 p.getFollowedBy()))
                 );
             }
-        }
+        });
         return str.toString();
     }
 
@@ -112,10 +108,11 @@ public class MainController extends BaseController {
 
     }
 
-    public void showPersonHistory(MouseEvent mouseEvent) {
-        LOG.info("Двойной клик на пользователе");
-        selectedPerson = table.getSelectionModel().getSelectedItem().getUserName();
-        createModalWindowMouse(mouseEvent, "Просмотр истории пользователя", "../fxml/personHistory.fxml");
+    public void showPersonHistory(ActionEvent actionEvent) {
+        LOG.info("Запустили метод " + new Object(){}.getClass().getEnclosingMethod().getName());
+        Long id = table.getSelectionModel().getSelectedItem().getId();
+        PersonHistoryController personHistoryController = new PersonHistoryController(actionEvent);
+        personHistoryController.showUserHistory(id);
     }
 
     @FXML
