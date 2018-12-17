@@ -1,7 +1,9 @@
-import objects.Person;
+package objects;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PersonTest {
 
@@ -13,6 +15,6 @@ public class PersonTest {
 
         assertEquals(person.getId(), 1418547643L);
         assertEquals(person.getUserName(), login);
-        assertEquals(person.isExist(), true);
+        assertTrue(person.isExist());
     }
 }

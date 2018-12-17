@@ -19,7 +19,6 @@ public class AboutFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.labelVersion.setText("0.0.0.0071");
         LOG.info("Инициализирован контроллер AboutFormController");
     }
 

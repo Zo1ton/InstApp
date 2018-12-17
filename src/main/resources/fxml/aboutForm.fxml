@@ -6,8 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="327.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AboutFormController">
    <children>
-      <Label alignment="CENTER" layoutX="107.0" layoutY="32.0" prefHeight="17.0" prefWidth="58.0" text="Версия:" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
-      <Label fx:id="labelVersion" alignment="CENTER" layoutX="107.0" layoutY="76.0" prefHeight="17.0" prefWidth="86.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+      <Label alignment="CENTER" layoutX="107.0" layoutY="32.0" prefHeight="17.0" prefWidth="58.0" text="Версия: ${version}" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
       <Button fx:id="btnOk" layoutX="95.0" layoutY="131.0" mnemonicParsing="false" onAction="#pressOkButton" text="ОК" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" />
    </children>
 </AnchorPane>
