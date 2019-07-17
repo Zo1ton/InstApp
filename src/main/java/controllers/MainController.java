@@ -94,10 +94,12 @@ public class MainController extends BaseController {
         db.getMap().forEach((k, v) -> {
             if (k.equals(id)){
                 v.forEach((p) ->
-                        str.insert(0, String.format("Date - %s UserName - %s Followers - %,d\n",
+                        str.insert(0, String.format("Date - %s %s Post - %,d Followers - %,d Following - %,d\n",
                                 p.getCREATING_DATE(),
                                 p.getUserName(),
-                                p.getFollowedBy()))
+                                p.getPosts(),
+                                p.getFollowedBy(),
+                                p.getFollows()))
                 );
             }
         });
@@ -113,6 +115,12 @@ public class MainController extends BaseController {
         Long id = table.getSelectionModel().getSelectedItem().getId();
         PersonHistoryController personHistoryController = new PersonHistoryController(actionEvent);
         personHistoryController.showUserHistory(id);
+    }
+
+    public void deleteUserFromDB() {
+        Long userId = table.getSelectionModel().getSelectedItem().getId();
+        db.getMap().remove(userId);
+        LOG.info("Удален пользователь id - " + userId);
     }
 
     @FXML
