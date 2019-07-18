@@ -18,7 +18,7 @@ public class CollectionInstagramAccounts implements ICollectionInstagramAccounts
 
     public void updateList(Map<Long, List<Person>> map) {
         instagramList.clear();
-        map.forEach( (k,v) -> instagramList.add(v.get(v.size() - 1)));
+        map.forEach((k, v) -> instagramList.add(v.get(v.size() - 1)));
     }
 
     @Override

@@ -22,22 +22,29 @@ public class DataBase {
     }
 
     /**
-     * Если уже есть мапа с такис пользователем, тогда добавляем пользователя в массив,
+     * Если уже есть мапа с таким пользователем, тогда добавляем пользователя в массив,
      * если нет тогда создаем новый массив
      * @param person - пользователь инстаграма
      */
     public void putPersonToMap(Person person) {
+        long personId = person.getId();
         List<Person> list;
-        if (map.containsKey(person.getId())) {
-            list = map.get(person.getId());
+        if (map.containsKey(personId)) {
+            list = map.get(personId);
             list.add(person);
-            map.put(person.getId(), list);
-            LOG.info("Обновлена запись " + person.getUserName() + " - id - " + person.getId());
+            map.put(personId, list);
+            LOG.info("Обновлена запись " + person.getUserName() + " - id - " + personId);
         } else {
             list = new ArrayList<>();
             list.add(person);
-            map.put(person.getId(), list);
-            LOG.info("Добавлена запись " + person.getUserName() + " - id - " + person.getId());
+            map.put(personId, list);
+            LOG.info("Добавлена запись " + person.getUserName() + " - id - " + personId);
         }
+    }
+
+    public void removePersonFromMapById (long personId) {
+        String userName = map.get(personId).get(0).getUserName();
+        map.remove(personId);
+        LOG.info("Удален пользователь " + userName + " - id - " + personId);
     }
 }

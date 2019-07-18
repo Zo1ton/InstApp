@@ -107,7 +107,6 @@ public class MainController extends BaseController {
     }
 
     public void merge(ActionEvent actionEvent) {
-
     }
 
     public void showPersonHistory(ActionEvent actionEvent) {
@@ -118,9 +117,9 @@ public class MainController extends BaseController {
     }
 
     public void deleteUserFromDB() {
-        Long userId = table.getSelectionModel().getSelectedItem().getId();
-        db.getMap().remove(userId);
-        LOG.info("Удален пользователь id - " + userId);
+        long userId = table.getSelectionModel().getSelectedItem().getId();
+        db.removePersonFromMapById(userId);
+        tableList.updateList(db.getMap());
     }
 
     @FXML
