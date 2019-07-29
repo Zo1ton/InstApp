@@ -139,4 +139,10 @@ public class MainController extends BaseController {
         createModalWindow(actionEvent, "Загрузка подписчиков из XML-файла", "../fxml/downloadFollowersFromXML.fxml");
     }
 
+    @FXML
+    public void downloadFollowersFromList(ActionEvent actionEvent) {
+        DownloadFollowersFromListController.userId = table.getSelectionModel().getSelectedItem().getId();
+        createModalWindow(actionEvent, "Загрузка списка подписчиков", "../fxml/downloadFollowersFromList.fxml");
+    }
+
 }

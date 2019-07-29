@@ -21,11 +21,11 @@ public abstract class BaseController {
     protected String selectedPerson;
     protected DataBase db = new DataBase();
 
-    protected void createModalWindow (ActionEvent actionEvent, String title, String controller) {
+    protected void createModalWindow (ActionEvent actionEvent, String title, String fxml) {
 
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource(controller));
+            Parent root = FXMLLoader.load(getClass().getResource(fxml));
             stage.setTitle(title);
             Image ico = new Image("images/InstICO_180_180.png");
             stage.getIcons().add(ico);
