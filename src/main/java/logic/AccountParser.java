@@ -16,30 +16,30 @@ public class AccountParser {
     /**
      * Ищет аккаунты у которых в публикациях присутствуют посты с указанными тэгами
      *
-     * @param personsList Список названий аккаунтов
-     * @param tags Список тэгов
+     * @param personsList - Список названий аккаунтов
+     * @param tags        - Список тэгов
      */
     public void findUsersWithTagsInComments(List<String> personsList, List<String> tags) {
         if (!personsList.isEmpty()) {
-                personsList.forEach((name) -> {
-                    Person person = new Person(name);
-                    LOG.trace("Обрабатываем пользователя: " + name);
-                    try {
-                        String comments = getFirst12PersonComments(person);
-                        tags.forEach((tag) -> {
-                            if (comments.toUpperCase().contains(tag)) {
-                                LOG.info("https://www.instagram.com/" + name + " - есть коменты с хэштегом " + tag);
-                            } else {
-                                LOG.trace("У пользователя " + name + " нет коментов с хэштегом " + tag);
-                            }
-                        });
-                    }   catch (StringIndexOutOfBoundsException e) {
-                        e.printStackTrace();
-                        LOG.error("StringIndexOutOfBoundsException у юзера - " + person.getUserName());
-                    }
-                });
-            }
+            personsList.forEach((name) -> {
+                Person person = new Person(name);
+                LOG.trace("Обрабатываем пользователя: " + name);
+                try {
+                    String comments = getFirst12PersonComments(person);
+                    tags.forEach((tag) -> {
+                        if (comments.toUpperCase().contains(tag)) {
+                            LOG.info("https://www.instagram.com/" + name + " - есть коменты с хэштегом " + tag);
+                        } else {
+                            LOG.trace("У пользователя " + name + " нет коментов с хэштегом " + tag);
+                        }
+                    });
+                } catch (StringIndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                    LOG.error("StringIndexOutOfBoundsException у юзера - " + person.getUserName());
+                }
+            });
         }
+    }
 
 
     private String getFirst12PersonComments(Person person) {
