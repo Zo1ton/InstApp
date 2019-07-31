@@ -11,7 +11,6 @@ import objects.Person;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class PersonHistoryController extends BaseController implements Initializable {
