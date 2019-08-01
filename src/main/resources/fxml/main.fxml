@@ -26,6 +26,12 @@
                               <MenuItem mnemonicParsing="false" onAction="#browseFile" text="Обработать подписчиков" />
                         </items>
                       </Menu>
+                        <Menu mnemonicParsing="false" text="Tools">
+                          <items>
+                            <MenuItem fx:id="exportToJson" mnemonicParsing="false" onAction="#exportToJson" text="Экспорт БД в json" />
+                              <MenuItem fx:id="importFromJson" mnemonicParsing="false" onAction="#importFromJson" text="Импорт БД из json" />
+                          </items>
+                        </Menu>
                       <Menu mnemonicParsing="false" text="Edit">
                         <items>
                           <MenuItem mnemonicParsing="false" onAction="#deleteUserFromDB" text="Delete" />

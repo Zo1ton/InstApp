@@ -4,6 +4,7 @@ import interfaces.impl.PersonHistory;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +23,7 @@ public class PersonHistoryController implements Initializable {
     private PersonHistory tableList = new PersonHistory();
 
     @FXML private TableView<Person> tablePersonHistory;
+    @FXML private TableColumn<Person, CheckBox> select;
     @FXML private TableColumn<Person, Date> dateColumn;
     @FXML private TableColumn<Person, Long> followersColumn;
     @FXML private TableColumn<Person, Boolean> isHistoryExistsColumn;
@@ -37,6 +39,7 @@ public class PersonHistoryController implements Initializable {
 
         tableList.updateList(db.getMap().get(personId));
 
+        select.setCellValueFactory(new PropertyValueFactory<>("select"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("CREATING_DATE"));
         followersColumn.setCellValueFactory(new PropertyValueFactory<>("followedBy"));
         isHistoryExistsColumn.setCellValueFactory(new PropertyValueFactory<>("isHistoryExistsColumn"));
@@ -51,10 +54,4 @@ public class PersonHistoryController implements Initializable {
         // заполняем таблицу данными
         tablePersonHistory.setItems(tableList.getPersonList());
     }
-
-    public void showUserHistory(Long userId) {
-//        this.personId = userId;
-//        createModalWindow(actionEvent, "Просмотр истории пользователя", "../fxml/personHistory.fxml");
-    }
-
 }

@@ -4,6 +4,7 @@ import controllers.ext.BaseController;
 import interfaces.impl.CollectionInstagramAccounts;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import logic.DataBaseToJson;
 import objects.Person;
 import org.apache.log4j.Logger;
 
@@ -17,15 +18,24 @@ public class MainController extends BaseController {
 
     private CollectionInstagramAccounts tableList = new CollectionInstagramAccounts();
 
-    @FXML private TextField textField;
-    @FXML private Label labelInfo;
-    @FXML private Label labelCount;
-    @FXML private TableView<Person> table;
-    @FXML private TableColumn<Person, Long> idColumn;
-    @FXML private TableColumn<Person, String> loginColumn;
-    @FXML private TableColumn<Person, Integer> postsColumn;
-    @FXML private TableColumn<Person, Integer> followersColumn;
-    @FXML private TableColumn<Person, Integer> followingColumn;
+    @FXML
+    private TextField textField;
+    @FXML
+    private Label labelInfo;
+    @FXML
+    private Label labelCount;
+    @FXML
+    private TableView<Person> table;
+    @FXML
+    private TableColumn<Person, Long> idColumn;
+    @FXML
+    private TableColumn<Person, String> loginColumn;
+    @FXML
+    private TableColumn<Person, Integer> postsColumn;
+    @FXML
+    private TableColumn<Person, Integer> followersColumn;
+    @FXML
+    private TableColumn<Person, Integer> followingColumn;
 
     @FXML
     public void initialize() {
@@ -92,7 +102,7 @@ public class MainController extends BaseController {
     private String getPersonHistory(Long id) {
         StringBuilder str = new StringBuilder();
         db.getMap().forEach((k, v) -> {
-            if (k.equals(id)){
+            if (k.equals(id)) {
                 v.forEach((p) ->
                         str.insert(0, String.format("Date - %s %s Post - %,d Followers - %,d Following - %,d\n",
                                 p.getCREATING_DATE(),
@@ -142,6 +152,18 @@ public class MainController extends BaseController {
     public void downloadFollowersFromList(ActionEvent actionEvent) {
         DownloadFollowersFromListController.userId = table.getSelectionModel().getSelectedItem().getId();
         createModalWindow(actionEvent, "Загрузка списка подписчиков", "../fxml/downloadFollowersFromList.fxml");
+    }
+
+    @FXML
+    public void exportToJson() {
+        LOG.info("exportToJson()");
+        DataBaseToJson dataBaseToJson = new DataBaseToJson();
+        dataBaseToJson.exportDBtoJson();
+    }
+
+    @FXML
+    public void importFromJson() {
+        LOG.info("importFromJson()");
     }
 
 }
