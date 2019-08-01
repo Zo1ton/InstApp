@@ -1,19 +1,25 @@
 package controllers;
 
-import controllers.ext.BaseController;
-import javafx.event.ActionEvent;
+import interfaces.impl.PersonHistory;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import objects.DataBase;
 import objects.Person;
+import org.apache.log4j.Logger;
 
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class PersonHistoryController extends BaseController implements Initializable {
+public class PersonHistoryController implements Initializable {
+
+    private static final Logger LOG = Logger.getLogger(PersonHistoryController.class);
+
+    private PersonHistory tableList = new PersonHistory();
 
     @FXML private TableView<Person> tablePersonHistory;
     @FXML private TableColumn<Person, Date> dateColumn;
@@ -21,22 +27,34 @@ public class PersonHistoryController extends BaseController implements Initializ
     @FXML private TableColumn<Person, Boolean> isHistoryExistsColumn;
 
     private DataBase db = new DataBase();
-    private ActionEvent actionEvent;
-    private long personId;
-
-    public PersonHistoryController(ActionEvent actionEvent) {
-        this.actionEvent = actionEvent;
-    }
+    static long personId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        List<Person> person = db.getMap().get(personId);
-//        dateColumn.setText("888");
+        LOG.info("Выбран пользователь Id - " + personId);
+        String userName = db.getActualPersonById(personId).getUserName();
+        LOG.info("Выбран пользователь userName - " + userName);
+
+        tableList.updateList(db.getMap().get(personId));
+
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("CREATING_DATE"));
+        followersColumn.setCellValueFactory(new PropertyValueFactory<>("followedBy"));
+        isHistoryExistsColumn.setCellValueFactory(new PropertyValueFactory<>("isHistoryExistsColumn"));
+
+        tableList.getPersonList().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change<? extends Person> c) {
+//                tablePersonHistory();
+            }
+        });
+
+        // заполняем таблицу данными
+        tablePersonHistory.setItems(tableList.getPersonList());
     }
 
     public void showUserHistory(Long userId) {
 //        this.personId = userId;
-        createModalWindow(actionEvent, "Просмотр истории пользователя", "../fxml/personHistory.fxml");
+//        createModalWindow(actionEvent, "Просмотр истории пользователя", "../fxml/personHistory.fxml");
     }
 
 }

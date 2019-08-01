@@ -111,9 +111,8 @@ public class MainController extends BaseController {
 
     public void showPersonHistory(ActionEvent actionEvent) {
         LOG.info("Запустили метод " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Long id = table.getSelectionModel().getSelectedItem().getId();
-        PersonHistoryController personHistoryController = new PersonHistoryController(actionEvent);
-        personHistoryController.showUserHistory(id);
+        PersonHistoryController.personId = table.getSelectionModel().getSelectedItem().getId();
+        createModalWindow(actionEvent, "Просмотр истории пользователя", "../fxml/personHistory.fxml");
     }
 
     public void deleteUserFromDB() {

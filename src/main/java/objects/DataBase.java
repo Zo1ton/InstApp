@@ -47,4 +47,10 @@ public class DataBase {
         map.remove(personId);
         LOG.info("Удален пользователь " + userName + " - id - " + personId);
     }
+
+    public Person getActualPersonById(long personId) {
+        List<Person> personList = map.get(personId);
+        int personListSize = personList.size();
+        return personList.get(personListSize - 1);
+    }
 }

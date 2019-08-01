@@ -22,7 +22,7 @@ public class DownloadFollowersFromListController extends BaseController {
         List<String> users = getListOfUsers(textArea.getText());
         LOG.info("userList:" + users);
         LOG.info("user:" + userId);
-        Person person = db.getMap().get(userId).get(db.getMap().get(userId).size() - 1);
+        Person person = db.getActualPersonById(userId);
         Map<Long, String> map = new HashMap<>();
         Long x = -1L;
         for (String user : users) {

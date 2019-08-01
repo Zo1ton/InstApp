@@ -6,7 +6,7 @@
 
     <groupId>org.rnd.api</groupId>
     <artifactId>inst-app</artifactId>
-    <version>0.0.0.0089</version>
+    <version>0.0.0.0090</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
         <project.resources.sourceEncoding>${encoding}</project.resources.sourceEncoding>
         <archetype.encoding>${encoding}</archetype.encoding>
-        <poi.version>4.0.1</poi.version>
+        <poi.version>4.1.0</poi.version>
     </properties>
 
     <developers>
@@ -107,7 +107,7 @@
                     <plugin>
                         <groupId>pl.project13.maven</groupId>
                         <artifactId>git-commit-id-plugin</artifactId>
-                        <version>2.2.5</version>
+                        <version>2.2.6</version>
                         <configuration>
                             <prefix>git</prefix>
                         </configuration>
