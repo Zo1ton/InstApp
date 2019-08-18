@@ -5,6 +5,7 @@ import interfaces.impl.CollectionInstagramAccounts;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import logic.DataBaseToJson;
+import logic.PersonMatcher;
 import objects.Person;
 import org.apache.log4j.Logger;
 
@@ -120,7 +121,8 @@ public class MainController extends BaseController {
     }
 
     public void showPersonHistory(ActionEvent actionEvent) {
-        LOG.info("Запустили метод " + new Object(){}.getClass().getEnclosingMethod().getName());
+        LOG.info("Запустили метод " + new Object() {
+        }.getClass().getEnclosingMethod().getName());
         PersonHistoryController.personId = table.getSelectionModel().getSelectedItem().getId();
         createModalWindow(actionEvent, "Просмотр истории пользователя", "../fxml/personHistory.fxml");
     }
@@ -152,6 +154,14 @@ public class MainController extends BaseController {
     public void downloadFollowersFromList(ActionEvent actionEvent) {
         DownloadFollowersFromListController.userId = table.getSelectionModel().getSelectedItem().getId();
         createModalWindow(actionEvent, "Загрузка списка подписчиков", "../fxml/downloadFollowersFromList.fxml");
+    }
+
+    @FXML
+    public void matchFollowers() {
+        PersonMatcher matcher = new PersonMatcher();
+        long userId = table.getSelectionModel().getSelectedItem().getId();
+        LOG.info("Start method matchFollowers() with userId - " + userId);
+        matcher.matchPerson(userId);
     }
 
     @FXML

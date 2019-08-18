@@ -21,12 +21,10 @@ public class ExcelParser {
             FileInputStream stream = new FileInputStream(file);
             XSSFWorkbook workbook = new XSSFWorkbook(stream);
             XSSFSheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext()) {
+            for (Row cells : sheet) {
                 long id = 0;
                 String name = "";
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
+                Iterator<Cell> cellIterator = cells.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 

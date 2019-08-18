@@ -24,7 +24,7 @@ public class DownloadFollowersFromListController extends BaseController {
         LOG.info("user:" + userId);
         Person person = db.getActualPersonById(userId);
         Map<Long, String> map = new HashMap<>();
-        Long x = -1L;
+        long x = -1L;
         for (String user : users) {
             map.put(x--, user);
         }

@@ -37,6 +37,7 @@
                           <MenuItem mnemonicParsing="false" onAction="#deleteUserFromDB" text="Delete" />
                               <MenuItem mnemonicParsing="false" onAction="#downloadFollowersFromXML" text="Загрузить подписчиков пользователю" />
                               <MenuItem mnemonicParsing="false" onAction="#downloadFollowersFromList" text="Загрузить список подписчиков" />
+                              <MenuItem mnemonicParsing="false" onAction="#matchFollowers" text="Сравнить коллекции подписчиков" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Help">
