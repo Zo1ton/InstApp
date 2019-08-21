@@ -8,8 +8,6 @@ import java.util.*;
 
 public class PersonMatcher extends BaseController {
 
-    static long userId;
-
     private static final Logger LOG = Logger.getLogger(PersonMatcher.class);
 
     /**
@@ -34,30 +32,44 @@ public class PersonMatcher extends BaseController {
     }
 
     public void matchPerson(long userId) {
-        List<String> after = getLists(userId, 1);
-        List<String> before = getLists(userId, 2);
+        List<String> after = getLists(userId, 3);
+        List<String> before = getLists(userId, 0);
         matchLists(before, after);
     }
 
-    private List<String> getLists(long userId, long counter) {
-        LOG.info("Запустили метод getLists");
-        long d = 1;
-        Person person = db.getActualPersonById(userId);
-        List<String> values = new ArrayList<>();
-        Map<Date, Map<Long, String>> mapFollows = person.getMapFollows();
-        if (mapFollows.isEmpty() || mapFollows.size() < 2) {
+    private List<String> getLists(long userId, int listNumber) {
+        LOG.info("Запустили метод getLists2");
+        List<String> list = new ArrayList<>();
+        List<List<String>> allFollowersLists = getAllFollowersLists(userId);
+        if (allFollowersLists.isEmpty() || allFollowersLists.size() < 2) {
             LOG.info("Меньше двух списков");
         } else {
-            long mapSize = mapFollows.size();
-            for (Map.Entry<Date, Map<Long, String>> entry : mapFollows.entrySet()) {
-                for (Map.Entry<Long, String> map : entry.getValue().entrySet()) {
-                    if (d == counter) {
-                        values.add(map.getValue());
-                    }
-                }
-                d++;
+            try {
+                list = allFollowersLists.get(listNumber);
+            } catch (IndexOutOfBoundsException e) {
+                LOG.info("Нет списка с таким номером");
+                LOG.trace(e);
             }
         }
-        return values;
+        return list;
+    }
+
+    private List<List<String>> getAllFollowersLists(long userId) {
+        List<Person> personList = db.getMap().get(userId);
+        List<List<String>> allFollowersLists = new ArrayList<>();
+        for (Person person : personList) {
+            Map<Date, Map<Long, String>> mapFollows = person.getMapFollows();
+            if (mapFollows != null) {
+                for (Map.Entry<Date, Map<Long, String>> entry : mapFollows.entrySet()) {
+                    List<String> followersLists = new ArrayList<>();
+                    for (Map.Entry<Long, String> map : entry.getValue().entrySet()) {
+                        followersLists.add(map.getValue());
+                    }
+                    allFollowersLists.add(followersLists);
+                }
+            }
+        }
+        LOG.info("allFollowersLists.size()=" + allFollowersLists.size());
+        return allFollowersLists;
     }
 }
