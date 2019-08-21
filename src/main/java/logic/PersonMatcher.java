@@ -17,14 +17,20 @@ public class PersonMatcher extends BaseController {
      * @param after  - пользователи после
      */
     private void matchLists(List<String> before, List<String> after) {
+        List<String> added = new ArrayList<>();
+        List<String> deleted = new ArrayList<>();
         for (String name : before) {
-            if (after.contains(name)) {
-                after.remove(name);
-                before.remove(name);
+            if (!after.contains(name)) {
+                deleted.add(name);
             }
         }
-        LOG.info("Отписались пользователи - " + before.toString());
-        LOG.info("Подписались пользователи - " + after.toString());
+        for (String name : after) {
+            if (!before.contains(name)) {
+                added.add(name);
+            }
+        }
+        LOG.info("Отписались пользователи - " + deleted.toString());
+        LOG.info("Подписались пользователи - " + added.toString());
     }
 
     public void matchPerson(long userId) {
