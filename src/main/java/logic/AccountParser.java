@@ -3,11 +3,12 @@ package logic;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import objects.Person;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+
+import static com.google.gson.JsonParser.parseString;
 
 public class AccountParser {
 
@@ -45,14 +46,9 @@ public class AccountParser {
     private String getFirst12PersonComments(Person person) {
 
         String json = person.getJson();
-
-        JsonParser parser = new JsonParser();
-        JsonElement rootElement;
         JsonArray array = new JsonArray();
-
         try {
-            rootElement = parser.parse(json);
-            array = rootElement.getAsJsonObject().getAsJsonObject("entry_data").getAsJsonArray("ProfilePage")
+            array = parseString(json).getAsJsonObject().getAsJsonObject("entry_data").getAsJsonArray("ProfilePage")
                     .get(0).getAsJsonObject().getAsJsonObject("graphql").getAsJsonObject("user")
                     .getAsJsonObject("edge_owner_to_timeline_media").getAsJsonArray("edges");
         } catch (NullPointerException npe) {

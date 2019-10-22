@@ -3,12 +3,13 @@ package objects;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import logic.PageParser;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.*;
+
+import static com.google.gson.JsonParser.parseString;
 
 /**
  * Created by SBT-Vdovin-AI on 10.07.2017.
@@ -101,8 +102,7 @@ public class Person implements Serializable {
     }
 
     private void getInfoFromJson() {
-        JsonParser parser = new JsonParser();
-        JsonElement rootElement = parser.parse(json);
+        JsonElement rootElement = parseString(json);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("entry_data");
         JsonArray array = pages.getAsJsonArray("ProfilePage");
