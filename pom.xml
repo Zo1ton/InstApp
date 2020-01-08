@@ -6,7 +6,7 @@
 
     <groupId>org.rnd.api</groupId>
     <artifactId>inst-app</artifactId>
-    <version>0.0.0.0095</version>
+    <version>0.0.0.0096</version>
     <packaging>jar</packaging>
 
     <properties>
